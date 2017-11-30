@@ -7,14 +7,14 @@ package wiresharkproject;
 
 import javafx.beans.property.SimpleStringProperty;
 
-
 /**
  *
  * @author Kero
  */
 public class NetworkInterfaceTable {
-            private final SimpleStringProperty AdapterName;
-        private final SimpleStringProperty AdapterIP;
+
+    private final SimpleStringProperty AdapterName;
+    private final SimpleStringProperty AdapterIP;
 
     public NetworkInterfaceTable(String n, String k) {
         this.AdapterName = new SimpleStringProperty(n);
@@ -28,9 +28,5 @@ public class NetworkInterfaceTable {
     public String getAdapterName() {
         return AdapterName.get();
     }
-        
-    
-
-    
 
 }
