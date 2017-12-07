@@ -5,6 +5,7 @@
  */
 package wiresharkproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,9 +19,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 
@@ -77,6 +83,17 @@ public class FXMLDocumentController implements Initializable {
 //            }
 //        }
         return ni;
+    }
+    
+    public void CaptureScreenBtn(ActionEvent event) throws IOException
+    {
+        Parent capture = FXMLLoader.load(getClass().getResource("CaptureWindow.fxml"));
+        Scene CaptureWindow = new Scene(capture);
+        
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(CaptureWindow);
+        window.show();
+
     }
 
 }
