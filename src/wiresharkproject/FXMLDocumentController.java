@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,7 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import java.net.*;
+
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -21,6 +21,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import jpcap.JpcapCaptor;
+import jpcap.NetworkInterface;
+
 
 /**
  *
@@ -48,26 +51,31 @@ public class FXMLDocumentController implements Initializable {
 
         try {
             tableView.setItems(showInterfaces());
-        } catch (SocketException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    private ObservableList showInterfaces() throws SocketException {
+    private ObservableList showInterfaces()  {
         ObservableList<NetworkInterfaceTable> ni = FXCollections.observableArrayList();
-        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-        String ip = null;
-        for (NetworkInterface networkinterface : Collections.list(nets)) {
-            if (networkinterface.isUp()) {
-                Enumeration<InetAddress> Addresses = networkinterface.getInetAddresses();
-                for (InetAddress Address : Collections.list(Addresses)) {
-                    ip = Address.getHostAddress();
-                    break;
-                }
-                ni.add(new NetworkInterfaceTable(networkinterface.getName(), ip));
-            }
+         NetworkInterface[] nic = JpcapCaptor.getDeviceList();
+         for (int i = 0; i < nic.length; i++) {
+             
+            ni.add(new NetworkInterfaceTable(nic[i].description, nic[i].addresses[1].address.getHostAddress()));
         }
+//        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
+//        String ip = null;
+//        for (NetworkInterface networkinterface : Collections.list(nets)) {
+//            if (networkinterface.isUp()) {
+//                Enumeration<InetAddress> Addresses = networkinterface.getInetAddresses();
+//                for (InetAddress Address : Collections.list(Addresses)) {
+//                    ip = Address.getHostAddress();
+//                    break;
+//                }
+//                ni.add(new NetworkInterfaceTable(networkinterface.getName(), ip));
+//            }
+//        }
         return ni;
     }
 
