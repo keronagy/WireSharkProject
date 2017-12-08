@@ -50,6 +50,21 @@ public class PacketReader implements PacketReceiver{
         
         
     }
+    
+    String showUDPDetails(Packet packet){
+        UDPPacket udp=(UDPPacket)packet;
+        String UDPPacketInfo=udp.toString();
+        String SrcPort = "\nSource Port number :  "+udp.src_port;
+        String DestPort = "\nDestination Port Number :  "+udp.dst_port;
+        String PacketLength="\nPacket Length :  "+udp.length;
+        String d_flag ="\nIP flag bit :  "+udp.d_flag;
+        String protocol="\nProtocol (v4/v6) :  "+udp.protocol;
+        String priority="\nPriority (class) (v4/v6) :  "+udp.priority;
+        
+        
+        System.out.println("\n\n"+UDPPacketInfo+SrcPort+DestPort+PacketLength+d_flag+protocol+priority);
+        return UDPPacketInfo+SrcPort+DestPort+PacketLength+d_flag+protocol+priority;
+    }
         
     String showGeneralInformation(Packet packet){
         String Packet="Packet: \n\n"+packet.toString()+"\n\n";
@@ -83,6 +98,7 @@ public class PacketReader implements PacketReceiver{
         }
         else if(packet instanceof jpcap.packet.UDPPacket){
            System.out.println("UDP!!!!");
+            showUDPDetails(packet);
         }
         else{
             String s=showGeneralInformation(packet);
