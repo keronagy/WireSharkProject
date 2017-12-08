@@ -5,10 +5,15 @@ import jpcap.*;
 
 
 public class PackageCapture {
-       public PackageCapture() throws IOException{
-         NetworkInterface [] Devices  = JpcapCaptor.getDeviceList();
-          JpcapCaptor captor=JpcapCaptor.openDevice(Devices[0], 65535, false, 200000000);
+    JpcapCaptor captor ;
+      
+void StartCapturing() throws IOException{
+      NetworkInterface [] Devices  = JpcapCaptor.getDeviceList();
+          captor=JpcapCaptor.openDevice(Devices[0], 65535, false, 100000);
           int numberofpacketscaptured =  captor.processPacket(-1, new PacketPrinter());
-           System.out.println(numberofpacketscaptured);
+          System.out.println(numberofpacketscaptured);
+}
+void StopCapturing(){
+    captor.breakLoop();
 }
 }

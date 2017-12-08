@@ -33,6 +33,8 @@ public class WireSharkProject extends Application {
      */
     public static void main(String[] args) throws IOException {
         PackageCapture p = new PackageCapture();
+        p.StartCapturing();
+        launch(args);
 
     }
     
