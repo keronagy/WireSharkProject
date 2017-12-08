@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -44,10 +43,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<NetworkInterfaceTable, String> AdapterIP;
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,11 +59,15 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private ObservableList showInterfaces()  {
+        String address = "";
         ObservableList<NetworkInterfaceTable> ni = FXCollections.observableArrayList();
          NetworkInterface[] nic = JpcapCaptor.getDeviceList();
          for (int i = 0; i < nic.length; i++) {
-             
-            ni.add(new NetworkInterfaceTable(nic[i].description, nic[i].addresses[1].address.getHostAddress()));
+             //nic[i].addresses[1].address.getHostAddress()
+             for (int j = 0; j < nic[i].addresses.length; j++) {
+                 address = nic[i].addresses[j].address.getHostAddress();
+             }
+            ni.add(new NetworkInterfaceTable(nic[i].description, address));
         }
 //        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
 //        String ip = null;
