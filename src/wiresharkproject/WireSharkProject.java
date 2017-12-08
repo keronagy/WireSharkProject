@@ -5,6 +5,7 @@
  */
 package wiresharkproject;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,8 +31,9 @@ public class WireSharkProject extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
+    public static void main(String[] args) throws IOException {
+        PackageCapture p = new PackageCapture();
+
     }
     
 }
