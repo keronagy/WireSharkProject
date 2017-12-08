@@ -43,7 +43,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<NetworkInterfaceTable, String> AdapterIP;
 
-
+    
+    
+    NetworkInterface[]nic;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -52,6 +55,8 @@ public class FXMLDocumentController implements Initializable {
 
         try {
             tableView.setItems(showInterfaces());
+            capturePacketsDummy(nic, 0);
+            
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,13 +66,13 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList showInterfaces()  {
         String address = "";
         ObservableList<NetworkInterfaceTable> ni = FXCollections.observableArrayList();
-         NetworkInterface[] nic = JpcapCaptor.getDeviceList();
+         nic = JpcapCaptor.getDeviceList();
          for (int i = 0; i < nic.length; i++) {
              //nic[i].addresses[1].address.getHostAddress()
              for (int j = 0; j < nic[i].addresses.length; j++) {
                  address = nic[i].addresses[j].address.getHostAddress();
              }
-            ni.add(new NetworkInterfaceTable(nic[i].description, address));
+            ni.add(new NetworkInterfaceTable(nic[i].name, address));
         }
 //        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
 //        String ip = null;
@@ -93,6 +98,17 @@ public class FXMLDocumentController implements Initializable {
         window.setScene(CaptureWindow);
         window.show();
 
+    }
+    void capturePacketsDummy(NetworkInterface [] ni,int InterfaceIndex){
+        try {
+            System.out.println("Beginning");
+            JpcapCaptor captor=JpcapCaptor.openDevice(ni[InterfaceIndex], 65535, false, 20);
+            captor.processPacket(10,new PacketReader());
+            captor.close();
+            System.out.println("Ending");
+        } catch (IOException ex) {
+            System.out.println("EXCEPTION");
+        }
     }
 
 }
