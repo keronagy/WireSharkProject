@@ -6,6 +6,8 @@
 package wiresharkproject;
 import jpcap.*;
 import jpcap.packet.Packet;
+import jpcap.packet.TCPPacket;
+import jpcap.packet.UDPPacket;
 //import net.sourceforge.jpcap.net.Packet;
 /**
  *
@@ -13,8 +15,43 @@ import jpcap.packet.Packet;
  */
 public class PacketReader implements PacketReceiver{
     
-    
-    String showDetailedView(Packet packet){
+        
+    String showTCPDetails(Packet packet){
+        TCPPacket tcp=(TCPPacket)packet;
+        
+        String ACK="\nACK:  "+tcp.ack;
+        
+        String SrcPort="\nSource Port :  "+tcp.src_port;
+        
+        String DestPort="\nDestination Port :  "+tcp.dst_port;
+        
+        String ACKNum="\nACKNum:  "+tcp.ack_num;
+        
+        String FINFlag="\nFIN Flag :  "+tcp.fin;
+        
+        String TCPOption="\nTCP Option :  ";
+        for(int i =0 ; i<tcp.option.length;i++){
+            TCPOption=TCPOption+tcp.option[i]+" ";
+        }
+        
+        String RSTFlag="\nRST Flag :  "+tcp.rst;
+        
+        String RSV1Flag="\nRSV1 Flag :  "+tcp.rsv1;
+        
+        String RSV2Flag="\nRSV2 Flag :  "+tcp.rsv2;
+        
+        String Sequence="\nSequence Number:  "+tcp.sequence;
+        
+        String SYNFlaf="\n SYN Flag :  "+tcp.syn;
+        
+        System.out.println(SrcPort+DestPort+ACK+ACKNum+FINFlag+TCPOption+RSTFlag+RSV1Flag+RSV2Flag+Sequence+SYNFlaf);
+        return SrcPort+DestPort+ACK+ACKNum+FINFlag+TCPOption+RSTFlag+RSV1Flag+RSV2Flag+Sequence+SYNFlaf;
+        
+        
+        
+    }
+        
+    String showGeneralInformation(Packet packet){
         String Packet="Packet: \n\n"+packet.toString()+"\n\n";
         
         String Length = "Length : "+packet.caplen+"\n\n";
@@ -39,9 +76,18 @@ public class PacketReader implements PacketReceiver{
     }
     //This Dummy
     public void receivePacket(Packet packet) {
-        String s=showDetailedView(packet);
+        if(packet instanceof jpcap.packet.TCPPacket){
+            System.out.println("TCP!!!");
+            showTCPDetails(packet);
+            
+        }
+        else if(packet instanceof jpcap.packet.UDPPacket){
+           System.out.println("UDP!!!!");
+        }
+        else{
+            String s=showGeneralInformation(packet);
+        }
     }
     
-  
-    
 }
+ 
