@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Kero
+ * @author Kero & kk & Mina & Osama
  */
 public class WireSharkProject extends Application {
     
