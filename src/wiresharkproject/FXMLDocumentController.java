@@ -26,8 +26,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import jpcap.JpcapCaptor;
-import jpcap.NetworkInterface;
 
 
 /**
@@ -61,14 +59,14 @@ public class FXMLDocumentController implements Initializable {
     private ObservableList showInterfaces()  {
         String address = "";
         ObservableList<NetworkInterfaceTable> ni = FXCollections.observableArrayList();
-         NetworkInterface[] nic = JpcapCaptor.getDeviceList();
-         for (int i = 0; i < nic.length; i++) {
-             //nic[i].addresses[1].address.getHostAddress()
-             for (int j = 0; j < nic[i].addresses.length; j++) {
-                 address = nic[i].addresses[j].address.getHostAddress();
-             }
-            ni.add(new NetworkInterfaceTable(nic[i].description, address));
-        }
+//         NetworkInterface[] nic = JpcapCaptor.getDeviceList();
+//         for (int i = 0; i < nic.length; i++) {
+//             //nic[i].addresses[1].address.getHostAddress()
+//             for (int j = 0; j < nic[i].addresses.length; j++) {
+//                 address = nic[i].addresses[j].address.getHostAddress();
+//             }
+//            ni.add(new NetworkInterfaceTable(nic[i].description, address));
+//        }
 //        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
 //        String ip = null;
 //        for (NetworkInterface networkinterface : Collections.list(nets)) {

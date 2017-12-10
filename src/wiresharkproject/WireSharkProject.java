@@ -19,12 +19,16 @@ public class WireSharkProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        System.out.println(System.getProperty("javafx.version"));
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
+        
+                System.out.println(System.getProperty("javafx.version"));
+
     }
 
     /**
