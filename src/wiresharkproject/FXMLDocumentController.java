@@ -7,6 +7,7 @@ package wiresharkproject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -35,31 +37,44 @@ import org.jnetpcap.*;
 public class FXMLDocumentController implements Initializable {
 
     @FXML
-    private TableView<NetworkInterfaceTable> tableView;
+    private TableView<PcapIf> tableView;
     @FXML
-    private TableColumn<NetworkInterfaceTable, String> AdapterName;
+    private TableColumn<PcapIf, String> AdapterName;
     @FXML
-    private TableColumn<NetworkInterfaceTable, String> AdapterIP;
+    private TableColumn<PcapIf, String> AdapterIP;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        AdapterName.setCellValueFactory(new PropertyValueFactory<NetworkInterfaceTable, String>("AdapterName"));
-        AdapterIP.setCellValueFactory(new PropertyValueFactory<NetworkInterfaceTable, String>("AdapterIP"));
+        AdapterName.setCellValueFactory(new PropertyValueFactory<PcapIf, String>("AdapterName"));
+        AdapterIP.setCellValueFactory(new PropertyValueFactory<PcapIf, String>("AdapterIP"));
 
         try {
-            tableView.setItems(showInterfaces());
+            tableView.setItems(getInterfaces());
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    private ObservableList showInterfaces()  {
+    private ObservableList getInterfaces()  {
         String address = "";
-        ObservableList<NetworkInterfaceTable> ni = FXCollections.observableArrayList();
-//         NetworkInterface[] nic = JpcapCaptor.getDeviceList();
+        ObservableList<PcapIfTable> ni = FXCollections.observableArrayList();
+       
+        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs         
+        StringBuilder errbuf = new StringBuilder();     // For any error msgs  
+        PcapIf x = new PcapIf();
+
+        try
+        {
+        int r = Pcap.findAllDevs(alldevs, errbuf);
+        }
+        catch(Exception e){System.out.println(errbuf);};
+
+//               for(int i=0; i< alldevs.size();i++)
+//                  ni.add(new PcapIfTable(alldevs.get(i).getName(),
+//                          alldevs.get(i).getAddresses().get(1).getAddr().toString())); 
 //         for (int i = 0; i < nic.length; i++) {
 //             //nic[i].addresses[1].address.getHostAddress()
 //             for (int j = 0; j < nic[i].addresses.length; j++) {
@@ -79,9 +94,9 @@ public class FXMLDocumentController implements Initializable {
 //                ni.add(new NetworkInterfaceTable(networkinterface.getName(), ip));
 //            }
 //        }
-        return ni;
+        return null;
     }
-    
+        
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
         Parent capture = FXMLLoader.load(getClass().getResource("CaptureWindow.fxml"));
