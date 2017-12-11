@@ -34,7 +34,7 @@ public class CaptureWindowController implements Initializable {
    public void StartBtn()
     {
         
-    APIs.projectController.pc.jPcapStartCapturing(0);
+    projectController.pc.jPcapStartCapturing(0);
 
     }
    

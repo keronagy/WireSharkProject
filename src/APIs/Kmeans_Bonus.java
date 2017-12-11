@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Kord
  */
-public class Kmeans {
+public class Kmeans_Bonus {
     
     double [][] X; //m*n matrix
     double [][] u; //K*n matrix
@@ -21,7 +21,7 @@ public class Kmeans {
     int m;
     int n;
     int K; //number of clusters
-    public Kmeans(double X[][], int K) {
+    public Kmeans_Bonus(double X[][], int K) {
        this.X = X;
        n = X[0].length;
        m = X.length;
