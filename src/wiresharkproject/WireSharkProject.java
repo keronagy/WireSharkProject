@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wiresharkproject;
+package wiresharkproject;   
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,6 @@ public class WireSharkProject extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        System.load(System.getProperty("user.dir")+"\\jnetpcap 1.4\\jnetpcap-1.4.r1300\\jnetpcap.dll");
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         
