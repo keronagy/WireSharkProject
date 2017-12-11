@@ -68,8 +68,7 @@ public class FXMLDocumentController implements Initializable {
 
     private ObservableList ShowInterfaces()  {
 
-        ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();
-       
+        ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();       
         List<PcapIf> alldevs = projectController.getNicsJnetpcap();
    
         String ip = "";

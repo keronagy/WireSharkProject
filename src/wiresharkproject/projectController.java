@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;
 import org.jnetpcap.*;
 
@@ -40,6 +41,11 @@ public class projectController extends Application {
         int r = Pcap.findAllDevs(alldevs, errbuf);
         
     return alldevs;
+    }
+    
+    public static NetworkInterface[] getNicsJpcap()
+    {
+     return JpcapCaptor.getDeviceList();   
     }
 
 

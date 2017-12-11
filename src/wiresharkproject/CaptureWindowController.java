@@ -47,7 +47,8 @@ public class CaptureWindowController implements Initializable {
    public void StartBtn()
     {
         
-        PacketReader jnetReader = new PacketReader();
+        PacketReader pr = new PacketReader();
+        pr.StartCapturing(0);
 
     }
     
