@@ -25,25 +25,11 @@ import jpcap.NetworkInterface;
  */
 public class CaptureWindowController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }  
-    
-        void capturePacketsDummy(NetworkInterface [] ni,int InterfaceIndex){
-        try {
-            System.out.println("Beginning");
-            JpcapCaptor captor=JpcapCaptor.openDevice(ni[InterfaceIndex], 65535, false, 20);
-            captor.processPacket(10,new PacketReader());
-            captor.close();
-            System.out.println("Ending");
-        } catch (IOException ex) {
-            System.out.println("EXCEPTION");
-        }
+    public void initialize(URL location, ResourceBundle resources) {
     }
+
+    
    public void StartBtn()
     {
         
