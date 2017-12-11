@@ -43,7 +43,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<PcapIf, String> AdapterIP;
 
-
+    
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -52,6 +54,10 @@ public class FXMLDocumentController implements Initializable {
 
         try {
             tableView.setItems(getInterfaces());
+
+            tableView.setItems(getInterfaces());
+            //capturePacketsDummy(nic, 0);
+            
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,17 +66,19 @@ public class FXMLDocumentController implements Initializable {
 
     private ObservableList getInterfaces()  {
         String address = "";
+
         ObservableList<PcapIfTable> ni = FXCollections.observableArrayList();
        
         List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs         
         StringBuilder errbuf = new StringBuilder();     // For any error msgs  
         PcapIf x = new PcapIf();
 
-        try
-        {
+        
         int r = Pcap.findAllDevs(alldevs, errbuf);
-        }
-        catch(Exception e){System.out.println(errbuf);};
+
+         for (int i = 0; i < alldevs.size(); i++) {
+             //nic[i].addresses[1].address.getHostAddress()
+
 
 //               for(int i=0; i< alldevs.size();i++)
 //                  ni.add(new PcapIfTable(alldevs.get(i).getName(),
@@ -94,7 +102,9 @@ public class FXMLDocumentController implements Initializable {
 //                ni.add(new NetworkInterfaceTable(networkinterface.getName(), ip));
 //            }
 //        }
-        return null;
+                                            }
+                 return null;
+
     }
         
     public void CaptureScreenBtn(ActionEvent event) throws IOException
@@ -107,5 +117,16 @@ public class FXMLDocumentController implements Initializable {
         window.show();
 
     }
+//    void capturePacketsDummy(NetworkInterface [] ni,int InterfaceIndex){
+//        try {
+//            System.out.println("Beginning");
+//            JpcapCaptor captor=JpcapCaptor.openDevice(ni[InterfaceIndex], 65535, false, 20);
+//            captor.processPacket(10,new PacketReader());
+//            captor.close();
+//            System.out.println("Ending");
+//        } catch (IOException ex) {
+//            System.out.println("EXCEPTION");
+//        }
+//    }
 
 }
