@@ -78,7 +78,7 @@ public class FXMLDocumentController implements Initializable {
     
 
         for(int i=0; i<alldevs.size();i++)
-            ni.add(new PcapIfRow(alldevs.get(i).getDescription(), ".")); //replace the dot with the ip
+            ni.add(new PcapIfRow(alldevs.get(i).getDescription(), alldevs.get(i).getAddresses().get(0).getAddr().toString().replace("[INET4:", "").replace("]", ""))); //replace the dot with the ip
  
         
 
