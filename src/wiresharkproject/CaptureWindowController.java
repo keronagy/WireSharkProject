@@ -47,9 +47,14 @@ public class CaptureWindowController implements Initializable {
    public void StartBtn()
     {
         
-        PacketReader pr = new PacketReader();
-        pr.StartCapturing(0);
+    projectController.pc.jPcapStartCapturing(0);
 
     }
+   
+   public void EndBtn()
+   {
+       
+    projectController.pc.jPcapEndCapturing();
+   }
     
 }

@@ -20,19 +20,7 @@ import org.jnetpcap.*;
 public class PacketReader implements PacketReceiver{
     
       
-   void StartCapturing(int InterfaceIndex){
-        try {
-            System.out.println("Beginning");
-            NetworkInterface[] ni = projectController.getNicsJpcap();
-            JpcapCaptor captor=JpcapCaptor.openDevice(ni[InterfaceIndex], 65535, false, 20);
-            captor.processPacket(10,new PacketReader());
-            captor.close();
-            System.out.println("Ending");
-            
-        } catch (IOException ex) {
-            System.out.println("EXCEPTION");
-        }
-    }
+
    
     String showTCPDetails(Packet packet){
         TCPPacket tcp=(TCPPacket)packet;

@@ -22,9 +22,10 @@ import org.jnetpcap.*;
  */
 public class projectController extends Application {
     
+    static PacketCuptorer pc;
     @Override
     public void start(Stage stage) throws Exception {
-
+//        pc = new PacketCuptorer();
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         
