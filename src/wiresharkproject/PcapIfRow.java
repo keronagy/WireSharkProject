@@ -11,12 +11,12 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Kero
  */
-public class PcapIfTable {
+public class PcapIfRow {
 
     private final SimpleStringProperty AdapterName;
     private final SimpleStringProperty AdapterIP;
 
-    public PcapIfTable(String n, String k) {
+    public PcapIfRow(String n, String k) {
         this.AdapterName = new SimpleStringProperty(n);
         this.AdapterIP = new SimpleStringProperty(k);
     }
