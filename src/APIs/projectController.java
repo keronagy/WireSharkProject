@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wiresharkproject;   
+package APIs;   
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.jnetpcap.*;
  */
 public class projectController extends Application {
     
-    static PacketCuptorer pc;
+    public static PacketCuptorer pc;
     @Override
     public void start(Stage stage) throws Exception {
 //        pc = new PacketCuptorer();

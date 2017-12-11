@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package wiresharkproject;
+package APIs;
 
 import java.io.IOException;
 import jpcap.JpcapCaptor;
@@ -21,7 +21,7 @@ public class PacketCuptorer {
         jpcapni = projectController.getNicsJpcap();
     }
     
-       void jPcapStartCapturing(int InterfaceIndex){
+       public void jPcapStartCapturing(int InterfaceIndex){
         try {
             System.out.println("Beginning");
             JpcapCaptor captor=JpcapCaptor.openDevice(jpcapni[InterfaceIndex], 65535, false, 20);
@@ -36,7 +36,7 @@ public class PacketCuptorer {
       
     }
        
-     void jPcapEndCapturing()
+     public void jPcapEndCapturing()
         {
             captor.close();
              System.out.println("Ending");
