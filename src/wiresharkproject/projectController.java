@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jpcap.NetworkInterface;
 import org.jnetpcap.*;
 
 /**
@@ -32,9 +33,9 @@ public class projectController extends Application {
 
     }
     
-    public static List getNics()
+    public static List getNicsJnetpcap()
     {
-        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs         
+        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs   
         StringBuilder errbuf = new StringBuilder();     // For any error msgs          
         int r = Pcap.findAllDevs(alldevs, errbuf);
         

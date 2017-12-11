@@ -31,7 +31,8 @@ public class CaptureWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }   
+    }  
+    
         void capturePacketsDummy(NetworkInterface [] ni,int InterfaceIndex){
         try {
             System.out.println("Beginning");

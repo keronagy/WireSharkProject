@@ -70,7 +70,7 @@ public class FXMLDocumentController implements Initializable {
 
         ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();
        
-        List<PcapIf> alldevs = projectController.getNics();
+        List<PcapIf> alldevs = projectController.getNicsJnetpcap();
    
         String ip = "";
         for(int i=0; i<alldevs.size();i++){
