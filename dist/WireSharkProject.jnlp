@@ -7,8 +7,8 @@
     <offline-allowed/>
   </information>
   <resources>
-    <j2se version="1.6+" java-vm-args="-Djava.library.path="C:\Users\Kord\Documents\GitHub\WireSharkProject\jnetpcap 1.4\jnetpcap-1.4.r1300" "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="WireSharkProject.jar" size="5837" download="eager" />
+    <j2se version="1.6+" java-vm-args="-Djava.library.path="src\lib\" "  href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="WireSharkProject.jar" size="5952" download="eager" />
     <jar href="lib\jnetpcap.jar" size="345992" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="WireSharkProject" >
