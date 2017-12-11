@@ -8,11 +8,14 @@ import jpcap.*;
 import jpcap.packet.Packet;
 import jpcap.packet.TCPPacket;
 import jpcap.packet.UDPPacket;
+import org.jnetpcap.*;
 //import net.sourceforge.jpcap.net.Packet;
 /**
  *
  * @author Mina
  */
+
+
 public class PacketReader implements PacketReceiver{
     
         

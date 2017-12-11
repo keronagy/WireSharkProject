@@ -6,8 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="wiresharkproject.CaptureWindowController">
+<AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wiresharkproject.CaptureWindowController">
    <children>
       <TableView layoutX="12.0" layoutY="60.0" prefHeight="200.0" prefWidth="753.0">
         <columns>
@@ -20,7 +19,7 @@
             <TableColumn prefWidth="75.0" text="Info" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" text="Start" />
+      <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
       <Button layoutX="64.0" layoutY="26.0" mnemonicParsing="false" text="Stop" />
       <Button layoutX="115.0" layoutY="26.0" mnemonicParsing="false" text="reset" />
       <TextArea layoutX="12.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0" />

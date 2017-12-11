@@ -29,8 +29,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jnetpcap.*;
-
-/**
+import jpcap.*;
+import jpcap.packet.Packet;
+import jpcap.packet.TCPPacket;
+import jpcap.packet.UDPPacket;/**
  *
  * @author Kero
  */
@@ -53,9 +55,9 @@ public class FXMLDocumentController implements Initializable {
         AdapterIP.setCellValueFactory(new PropertyValueFactory<PcapIf, String>("AdapterIP"));
 
         try {
-            tableView.setItems(getInterfaces());
+            tableView.setItems(ShowInterfaces());
 
-            tableView.setItems(getInterfaces());
+            tableView.setItems(ShowInterfaces());
             //capturePacketsDummy(nic, 0);
             
         } catch (Exception ex) {
@@ -64,18 +66,12 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    private ObservableList getInterfaces()  {
-        String address = "";
+    private ObservableList ShowInterfaces()  {
 
         ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();
        
-        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs         
-        StringBuilder errbuf = new StringBuilder();     // For any error msgs  
-
-        
-        int r = Pcap.findAllDevs(alldevs, errbuf);
-
-    
+        List<PcapIf> alldevs = projectController.getNics();
+   
         String ip = "";
         for(int i=0; i<alldevs.size();i++){
             for (int j = 0; j < alldevs.get(i).getAddresses().size(); j++) {
@@ -87,7 +83,7 @@ public class FXMLDocumentController implements Initializable {
 
       return ni;
 
-    }
+ }
         
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
@@ -99,16 +95,6 @@ public class FXMLDocumentController implements Initializable {
         window.show();
 
     }
-//    void capturePacketsDummy(NetworkInterface [] ni,int InterfaceIndex){
-//        try {
-//            System.out.println("Beginning");
-//            JpcapCaptor captor=JpcapCaptor.openDevice(ni[InterfaceIndex], 65535, false, 20);
-//            captor.processPacket(10,new PacketReader());
-//            captor.close();
-//            System.out.println("Ending");
-//        } catch (IOException ex) {
-//            System.out.println("EXCEPTION");
-//        }
-//    }
+
 
 }
