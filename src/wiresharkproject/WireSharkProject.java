@@ -27,7 +27,6 @@ public class WireSharkProject extends Application {
         stage.setScene(scene);
         stage.show();
         
-                System.out.println(System.getProperty("javafx.version"));
 
     }
 

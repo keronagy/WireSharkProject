@@ -80,34 +80,8 @@ public class FXMLDocumentController implements Initializable {
             ni.add(new PcapIfRow(alldevs.get(i).getDescription(), "."));
  
         
-//         for (int i = 0; i < alldevs.size(); i++) {
-             //nic[i].addresses[1].address.getHostAddress()
 
-
-//               for(int i=0; i< alldevs.size();i++)
-//                  ni.add(new PcapIfTable(alldevs.get(i).getName(),
-//                          alldevs.get(i).getAddresses().get(1).getAddr().toString())); 
-//         for (int i = 0; i < nic.length; i++) {
-//             //nic[i].addresses[1].address.getHostAddress()
-//             for (int j = 0; j < nic[i].addresses.length; j++) {
-//                 address = nic[i].addresses[j].address.getHostAddress();
-//             }
-//            ni.add(new NetworkInterfaceTable(nic[i].description, address));
-//        }
-//        Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-//        String ip = null;
-//        for (NetworkInterface networkinterface : Collections.list(nets)) {
-//            if (networkinterface.isUp()) {
-//                Enumeration<InetAddress> Addresses = networkinterface.getInetAddresses();
-//                for (InetAddress Address : Collections.list(Addresses)) {
-//                    ip = Address.getHostAddress();
-//                    break;
-//                }
-//                ni.add(new NetworkInterfaceTable(networkinterface.getName(), ip));
-//            }
-//        }
-                                            
-                 return ni;
+      return ni;
 
     }
         
