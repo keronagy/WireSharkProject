@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -43,9 +43,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TableColumn<PcapIf, String> AdapterIP;
 
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -57,40 +54,37 @@ public class FXMLDocumentController implements Initializable {
 
             tableView.setItems(getInterfaces());
             //capturePacketsDummy(nic, 0);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
-    private ObservableList getInterfaces()  {
+    private ObservableList getInterfaces() {
         String address = "";
 
         ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();
-       
+
         List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs         
         StringBuilder errbuf = new StringBuilder();     // For any error msgs  
 
-        
         int r = Pcap.findAllDevs(alldevs, errbuf);
 
-        
-        for(int i=0; i<alldevs.size();i++)
-            ni.add(new PcapIfRow(alldevs.get(i).getDescription(), "."));
- 
-        
+        for (int i = 0; i < alldevs.size(); i++) {
+            ni.add(new PcapIfRow(alldevs.get(i).getDescription(), alldevs.get(i).getAddresses().get(0).getAddr().toString().replace("[INET4:", "").replace("]", "")));
+            System.out.println("");
+        }
 
-      return ni;
+        return ni;
 
     }
-        
-    public void CaptureScreenBtn(ActionEvent event) throws IOException
-    {
+
+    public void CaptureScreenBtn(ActionEvent event) throws IOException {
         Parent capture = FXMLLoader.load(getClass().getResource("CaptureWindow.fxml"));
         Scene CaptureWindow = new Scene(capture);
-        
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(CaptureWindow);
         window.show();
 
