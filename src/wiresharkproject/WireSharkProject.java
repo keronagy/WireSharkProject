@@ -20,13 +20,14 @@ public class WireSharkProject extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        System.load("C:\\Users\\Kord\\Documents\\GitHub\\WireSharkProject\\jnetpcap 1.4\\jnetpcap-1.4.r1300\\jnetpcap.dll");
+
+        System.load(System.getProperty("user.dir")+"\\jnetpcap 1.4\\jnetpcap-1.4.r1300\\jnetpcap.dll");
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
-        
+
 
     }
 
