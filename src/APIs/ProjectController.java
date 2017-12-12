@@ -21,35 +21,42 @@ import org.jnetpcap.*;
  */
 public class ProjectController extends Application {
     
-    private static PacketCapturer pc;
-    private static int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
-    private static ArrayList<PcapIf> NetworkDevicesList;
-    
-    
-    public static void startCapturing(){
-        pc.StartCapture(NetworkInterfaceIndex);
+    private PacketCapturer pcapt;
+    private int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
+    private ArrayList<PcapIf> NetworkDevicesList;
+
+    public ProjectController() {
+        pcapt = new PacketCapturer();
+        NetworkDevicesList = new ArrayList();
     }
     
-    public static void stopCapturing(){
-        pc.stopCapturing();
+    
+    public void startCapturing(){
+        pcapt.StartCapture(NetworkInterfaceIndex);
     }
     
-    public static void setNetworkInterfaceIndex(int Index){
+    public void stopCapturing(){
+        pcapt.stopCapturing();
+    }
+    
+    public void setNetworkInterfaceIndex(int Index){
        NetworkInterfaceIndex=Index;
     }
     
-    public static ArrayList<PcapIf> getNetworkInterfacesList(){
+    public ArrayList<PcapIf> getNetworkInterfacesList(){
         return NetworkDevicesList;
     }
     
-    public static int getNetworkInterfaceIndex(){
+    public int getNetworkInterfaceIndex(){
         return NetworkInterfaceIndex;
     }
     
     
     @Override
     public void start(Stage stage) throws Exception {
-//        pc = new PacketCuptorer();
+
+        Constants.pc = new ProjectController();
+            
 try{
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/FXMLDocument.fxml"));
             Scene scene = new Scene(root);
@@ -63,7 +70,7 @@ try{
     }
     
     
-    public static List formAndReturnNetworkInterfacesList()
+    public List getNics()
     {
         NetworkDevicesList = new ArrayList<PcapIf>(); // Will be filled with NICs   
         StringBuilder ErrorBuffer = new StringBuilder();     // For any error msgs          

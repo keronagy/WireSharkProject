@@ -27,30 +27,28 @@ public class PacketCapturer {
         PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {  
             @Override
             public void nextPacket(PcapPacket packet, String user) {  
-//                System.out.printf("Received packet at %s caplen=%-4d len=%-4d %s\n",  
-//                    new Date(packet.getCaptureHeader().timestampInMillis()),   
-//                    packet.getCaptureHeader().caplen(),  // Length actually captured  
-//                    packet.getCaptureHeader().wirelen(), // Original length   
-//                    user                                 // User supplied object  
-//                    );  
+  
                 AccessPacket(packet);
             }  
         };  
-        pcap.loop(-1, jpacketHandler, null);
+        //pcap.loop(-1, jpacketHandler, null);
     }
     
     public void OpenNetworkInterface(int InterfaceIndex){
         StringBuilder errbuf = new StringBuilder();
-        int snalen = 2048; // Truncate packet at this size
-        int promiscous = Pcap.MODE_PROMISCUOUS;
+        int snalen = 64 * 1024;           // Capture all packets, no truncation 
+            int promiscous = Pcap.MODE_PROMISCUOUS;
         int timeout = 60 * 1000; // In milliseconds
-        pcap=Pcap.openLive(ProjectController.getNetworkInterfacesList().get(InterfaceIndex).getName(),snalen, promiscous, timeout, errbuf);
+        String device = Constants.pc.getNetworkInterfacesList().get(InterfaceIndex).getName();
+        pcap=Pcap.openLive(device,snalen, promiscous, timeout, errbuf);
         if(pcap==null){
             System.out.println("Error when Opening the network interface with index : "+InterfaceIndex+"\nThe Errbuf is "+errbuf.toString());
         }
     }
     
     public void stopCapturing(){
+    
+    
     }
     
     public String AccessPacket(PcapPacket packet){

@@ -72,8 +72,8 @@ public class FXMLDocumentController implements Initializable {
     }
     
     private ObservableList ShowInterfaces()  {
-        ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();       
-        List<PcapIf> alldevs = ProjectController.formAndReturnNetworkInterfacesList();
+        ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();   
+        List<PcapIf> alldevs = APIs.Constants.pc.getNics();
         //SOME DOCUMENTATION THAT MAY HELP FOR OUR GUI GUY 
         //alldevs.get(INDEX).getName()--> RETURNS A STRING HOLDING THE NAME OF THE NETWORK INTERFACE
         //alldevs.get(INDEX).getDescription()--> RETURNS A STRING HOLDING THE DESCRIPTION OF THE NETWORK INTERFACE
@@ -93,12 +93,18 @@ public class FXMLDocumentController implements Initializable {
     
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
-        Parent capture = FXMLLoader.load(getClass().getResource("CaptureWindow.fxml"));
+        try{
+        Parent capture = FXMLLoader.load(getClass().getResource("/GUI/CaptureWindow.fxml"));
         Scene CaptureWindow = new Scene(capture);
         
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(CaptureWindow);
         window.show();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getCause());
+        }
 
     }
 
