@@ -22,16 +22,22 @@ import org.jnetpcap.protocol.tcpip.Udp;
 public class PacketCapturer {
     Pcap pcap;
     public void StartCapture(int InterfaceIndex){
-        
+        System.out.println("test1");
         OpenNetworkInterface(InterfaceIndex);
         PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {  
             @Override
             public void nextPacket(PcapPacket packet, String user) {  
-  
+                System.out.println("test3");
                 AccessPacket(packet);
-            }  
+             }  
         };  
-        //pcap.loop(-1, jpacketHandler, null);
+        
+        try{
+            System.out.println("test2");
+        pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
+        System.out.println("test4");
+        }
+        catch(Exception e){System.out.println("Exception");};
     }
     
     public void OpenNetworkInterface(int InterfaceIndex){
@@ -39,15 +45,17 @@ public class PacketCapturer {
         int snalen = 64 * 1024;           // Capture all packets, no truncation 
             int promiscous = Pcap.MODE_PROMISCUOUS;
         int timeout = 60 * 1000; // In milliseconds
-        String device = Constants.pc.getNetworkInterfacesList().get(InterfaceIndex).getName();
+        String device = Constants.pc.getNetworkInterfacesList().get(1).getName();
         pcap=Pcap.openLive(device,snalen, promiscous, timeout, errbuf);
+        System.out.println(device);
         if(pcap==null){
             System.out.println("Error when Opening the network interface with index : "+InterfaceIndex+"\nThe Errbuf is "+errbuf.toString());
         }
     }
     
     public void stopCapturing(){
-    
+      
+        pcap.breakloop();
     
     }
     
