@@ -12,8 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-//import jpcap.JpcapCaptor;
-//import jpcap.NetworkInterface;
+
 import org.jnetpcap.*;
 
 /**
@@ -51,11 +50,16 @@ public class ProjectController extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 //        pc = new PacketCuptorer();
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        Scene scene = new Scene(root);
+try{
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/FXMLDocument.fxml"));
+            Scene scene = new Scene(root);
         
         stage.setScene(scene);
         stage.show();
+}catch(Exception e){
+    System.out.println(e.getCause());
+}
+    
     }
     
     

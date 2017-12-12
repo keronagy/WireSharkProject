@@ -34,6 +34,8 @@ import org.jnetpcap.*;
 //import jpcap.packet.TCPPacket;
 //import jpcap.packet.UDPPacket;
 import APIs.ProjectController;
+import APIs.ProjectController;
+import GUI.PcapIfRow;
 /**
  *
  * @author Kero
