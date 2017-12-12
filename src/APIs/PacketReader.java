@@ -9,8 +9,7 @@ import jpcap.*;
 
 import org.jnetpcap.*;
 import org.jnetpcap.packet.PcapPacket;
-import org.jnetpcap.protocol.tcpip.Http;
-import org.jnetpcap.protocol.tcpip.Tcp;
+import org.jnetpcap.protocol.tcpip.*;
 //import net.sourceforge.jpcap.net.Packet;
 /**
  *
@@ -23,9 +22,11 @@ public class PacketReader {
     public String ReadPacket(PcapPacket packet){
         byte b[]= new byte[50];
         b=packet.getByteArray(0, b);
-        //just trying it :D
+        
+        
         String packetBytes=b.toString();
         if(packet.hasHeader(Tcp.ID)){
+             
             Tcp tcp = packet.getHeader(new Tcp());
             String protocol="TCP";
             String ID = "ID : "+tcp.getId();
