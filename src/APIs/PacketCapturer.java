@@ -28,13 +28,13 @@ public class PacketCapturer {
             @Override
             public void nextPacket(PcapPacket packet, String user) {  
                 System.out.println("test3");
-                AccessPacket(packet);
+                //AccessPacket(packet);
              }  
         };  
-        
+        System.out.println("Test1_2");
         try{
             System.out.println("test2");
-        pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
+        //pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
         System.out.println("test4");
         }
         catch(Exception e){System.out.println("Exception");};
@@ -45,7 +45,7 @@ public class PacketCapturer {
         int snalen = 64 * 1024;           // Capture all packets, no truncation 
             int promiscous = Pcap.MODE_PROMISCUOUS;
         int timeout = 60 * 1000; // In milliseconds
-        String device = Constants.pc.getNetworkInterfacesList().get(1).getName();
+        String device = Constants.pc.getNetworkInterfacesList().get(0).getName();
         pcap=Pcap.openLive(device,snalen, promiscous, timeout, errbuf);
         System.out.println(device);
         if(pcap==null){

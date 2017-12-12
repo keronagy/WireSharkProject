@@ -30,7 +30,7 @@ public class ProjectController extends Application {
         NetworkDevicesList = new ArrayList();
     }
     
-     class CapturerThread implements Runnable {
+    class CapturerThread implements Runnable {
         @Override
         public void run() {
         pcapt.StartCapture(NetworkInterfaceIndex);               
