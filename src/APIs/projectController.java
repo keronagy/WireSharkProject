@@ -12,42 +12,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-//import jpcap.JpcapCaptor;
-//import jpcap.NetworkInterface;
+import jpcap.JpcapCaptor;
+import jpcap.NetworkInterface;
 import org.jnetpcap.*;
 
 /**
  *
  * @author Kero & kk & Mina & Osama
  */
-public class ProjectController extends Application {
+public class projectController extends Application {
     
-    private static PacketCapturer pc;
-    private static int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
-    private static ArrayList<PcapIf> NetworkDevicesList;
-    
-    
-    public static void startCapturing(){
-        pc.StartCapture(NetworkInterfaceIndex);
-    }
-    
-    public static void stopCapturing(){
-        pc.stopCapturing();
-    }
-    
-    public static void setNetworkInterfaceIndex(int Index){
-       NetworkInterfaceIndex=Index;
-    }
-    
-    public static ArrayList<PcapIf> getNetworkInterfacesList(){
-        return NetworkDevicesList;
-    }
-    
-    public static int getNetworkInterfaceIndex(){
-        return NetworkInterfaceIndex;
-    }
-    
-    
+    public static PacketCuptorer pc;
     @Override
     public void start(Stage stage) throws Exception {
 //        pc = new PacketCuptorer();
@@ -56,20 +31,24 @@ public class ProjectController extends Application {
         
         stage.setScene(scene);
         stage.show();
+
+
     }
     
-    
-    public static List formAndReturnNetworkInterfacesList()
+    public static List getNicsJnetpcap()
     {
-        NetworkDevicesList = new ArrayList<PcapIf>(); // Will be filled with NICs   
-        StringBuilder ErrorBuffer = new StringBuilder();     // For any error msgs          
-       
-        int ErrorFlag = Pcap.findAllDevs(NetworkDevicesList, ErrorBuffer);
+        List<PcapIf> alldevs = new ArrayList<PcapIf>(); // Will be filled with NICs   
+        StringBuilder errbuf = new StringBuilder();     // For any error msgs          
+        int r = Pcap.findAllDevs(alldevs, errbuf);
         
-        if(ErrorFlag!=Pcap.OK){
-            System.out.println("Error in Network Device List "+ErrorBuffer.toString());
-        }
-        
-        return NetworkDevicesList;
+    return alldevs;
     }
+    
+    public static NetworkInterface[] getNicsJpcap()
+    {
+     return JpcapCaptor.getDeviceList();   
+    }
+
+
+    
 }
