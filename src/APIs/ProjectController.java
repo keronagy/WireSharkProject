@@ -22,7 +22,7 @@ import org.jnetpcap.*;
 public class ProjectController extends Application {
     
     private PacketCapturer pcapt;
-    private int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
+    public int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
     private ArrayList<PcapIf> NetworkDevicesList;
 
     public ProjectController() {

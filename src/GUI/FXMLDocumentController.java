@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import APIs.Constants;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
         try {
             tableView.setItems(ShowInterfaces());
 
-            tableView.setItems(ShowInterfaces());
+            
             
             //capturePacketsDummy(nic, 0);
             
@@ -94,6 +95,8 @@ public class FXMLDocumentController implements Initializable {
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
         try{
+            Constants.pc.NetworkInterfaceIndex = tableView.getSelectionModel().getSelectedIndex();
+            System.out.println(tableView.getSelectionModel().getSelectedIndex());
         Parent capture = FXMLLoader.load(getClass().getResource("/GUI/CaptureWindow.fxml"));
         Scene CaptureWindow = new Scene(capture);
         
