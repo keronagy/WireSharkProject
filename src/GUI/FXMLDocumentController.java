@@ -29,10 +29,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jnetpcap.*;
-import jpcap.*;
-import jpcap.packet.Packet;
-import jpcap.packet.TCPPacket;
-import jpcap.packet.UDPPacket;import APIs.projectController;
+//import jpcap.*;
+//import jpcap.packet.Packet;
+//import jpcap.packet.TCPPacket;
+//import jpcap.packet.UDPPacket;
+import APIs.ProjectController;
 /**
  *
  * @author Kero
@@ -59,6 +60,7 @@ public class FXMLDocumentController implements Initializable {
             tableView.setItems(ShowInterfaces());
 
             tableView.setItems(ShowInterfaces());
+            
             //capturePacketsDummy(nic, 0);
             
         } catch (Exception ex) {
@@ -66,12 +68,14 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-
+    
     private ObservableList ShowInterfaces()  {
-
         ObservableList<PcapIfRow> ni = FXCollections.observableArrayList();       
-        List<PcapIf> alldevs = projectController.getNicsJnetpcap();
-   
+        List<PcapIf> alldevs = ProjectController.formAndReturnNetworkInterfacesList();
+        //SOME DOCUMENTATION THAT MAY HELP FOR OUR GUI GUY 
+        //alldevs.get(INDEX).getName()--> RETURNS A STRING HOLDING THE NAME OF THE NETWORK INTERFACE
+        //alldevs.get(INDEX).getDescription()--> RETURNS A STRING HOLDING THE DESCRIPTION OF THE NETWORK INTERFACE
+        
         String ip = "";
         for(int i=0; i<alldevs.size();i++){
             for (int j = 0; j < alldevs.get(i).getAddresses().size(); j++) {
@@ -84,7 +88,7 @@ public class FXMLDocumentController implements Initializable {
       return ni;
 
  }
-        
+    
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
         Parent capture = FXMLLoader.load(getClass().getResource("CaptureWindow.fxml"));

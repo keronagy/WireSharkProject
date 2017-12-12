@@ -8,12 +8,12 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.library.path="src\lib\" "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="WireSharkProject.jar" size="486936" download="eager" />
+    <jar href="WireSharkProject.jar" size="488729" download="eager" />
     <jar href="lib\jnetpcap.jar" size="345992" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="WireSharkProject" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="wiresharkproject.projectController"  name="WireSharkProject" />
+  <jfx:javafx-desc  width="800" height="600" main-class="APIs.ProjectController"  name="WireSharkProject" />
   <update check="always"/>
 </jnlp>
