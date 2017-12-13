@@ -5,7 +5,11 @@
         <group>
             <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/APIs/ProjectController.java</file>
             <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/APIs/Kmeans_Bonus.java</file>
+            <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/GUI/PcapIfRow.java</file>
+            <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/APIs/PacketReader.java</file>
+            <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/GUI/CaptureWindowController.java</file>
             <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/APIs/PacketCapturer.java</file>
+            <file>file:/C:/Users/apple/Documents/GitHub/WireSharkProject/src/GUI/FXMLDocumentController.java</file>
         </group>
     </open-files>
 </project-private>
