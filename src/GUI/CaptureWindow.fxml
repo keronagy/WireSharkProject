@@ -23,6 +23,8 @@
       <Button layoutX="64.0" layoutY="26.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
       <Button layoutX="115.0" layoutY="26.0" mnemonicParsing="false" text="reset" />
       <TextArea layoutX="12.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0" />
+      <Button fx:id="SaveBtn" layoutX="571.0" layoutY="13.0" mnemonicParsing="false" onAction="#SaveBtnClicked" text="Save" />
       <TextArea layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="753.0" />
+      <Button fx:id="LoadBtn" layoutX="643.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" text="Load" />
    </children>
 </AnchorPane>
