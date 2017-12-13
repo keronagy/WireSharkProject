@@ -9,6 +9,7 @@ import jpcap.*;
 
 import org.jnetpcap.*;
 import org.jnetpcap.packet.PcapPacket;
+import static org.jnetpcap.protocol.JProtocol.UDP;
 import org.jnetpcap.protocol.tcpip.*;
 //import net.sourceforge.jpcap.net.Packet;
 /**
@@ -23,11 +24,26 @@ public class PacketReader {
         byte b[]= new byte[50];
         b=packet.getByteArray(0, b);
         
-        
+        Http http = new Http();
+        Tcp tcp = new Tcp();
         String packetBytes=b.toString();
-        if(packet.hasHeader(Tcp.ID)){
-             
-            Tcp tcp = packet.getHeader(new Tcp());
+        
+        if(packet.hasHeader(http)){
+            System.out.println("<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<");
+            http= packet.getHeader(new Http());
+            String protocol = "HTTP";
+            String HeaderLength = ""+http.getHeaderLength();
+            String ContentType="Content Type : "+http.contentType();
+            String HeaderDescription= "Header Description"+http.getDescription();
+            String Name="Name : "+http.getName();
+            String ID=""+http.getId();
+            String summary = http.toString();
+            
+            System.out.println(packetBytes+"\n"+protocol+"\n"+HeaderLength+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n");
+            return packetBytes+"\n"+protocol+"\n"+HeaderLength+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n";
+        }
+        else if(packet.hasHeader(tcp)){
+            tcp = packet.getHeader(new Tcp());
             String protocol="TCP";
             String ID = "ID : "+tcp.getId();
             String Name="Name : "+tcp.getName();
@@ -44,19 +60,10 @@ public class PacketReader {
                     "\n"+Name+"\n"+ack+"\n"+CheckSum+"\n"+CheckSumDescription+"\n"+srcPort+"\n"+destPort+"\n"+hlen+"\n"+sequence+"\n"+summary);
             return packetBytes+"\n"+protocol+"\n"+ID+"\n"+Name+"\n"+ack+"\n"+CheckSum+"\n"+CheckSumDescription+"\n"+srcPort+"\n"+destPort+"\n"+hlen+"\n"+sequence+"\n"+summary+"\n";
         }
-        else if(packet.hasHeader(Http.ID)){
-            Http http= packet.getHeader(new Http());
-            String protocol = "HTTP";
-            String HeaderLength = ""+http.getHeaderLength();
-            String ContentType="Content Type : "+http.contentType();
-            String HeaderDescription= "Header Description"+http.getDescription();
-            String Name="Name : "+http.getName();
-            String ID=""+http.getId();
-            String summary = http.toString();
-            
-            System.out.println(packetBytes+"\n"+protocol+"\n"+HeaderLength+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n");
-            return packetBytes+"\n"+protocol+"\n"+HeaderLength+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n";
-        }
+        
+//        else if(packet.hasHeader(UDP.ID)){
+//            
+//        }
         
         
         //else if(packet.hasHeader(packet))
