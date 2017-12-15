@@ -20,6 +20,9 @@ public class RowPacket {
         this.Length = new SimpleStringProperty (Length);
         this.Info = new SimpleStringProperty (Info);
     }
+    public int GetNo(){
+     return No;
+    }
     public String GetTime(){
         return Time.get();
     }
