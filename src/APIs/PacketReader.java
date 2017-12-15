@@ -5,6 +5,7 @@
  */
 package APIs;
 import java.io.IOException;
+import java.util.Date;
 import jpcap.*;
 
 import org.jnetpcap.*;
@@ -31,6 +32,7 @@ public class PacketReader {
         Udp udp = new Udp();
         Http http = new Http();
         Tcp tcp = new Tcp();
+        Date datee = new Date();
         
         String packetBytes=packet.toHexdump();
         String PacketTotalSize="Number of bytes currently allocated : "+packet.size();
@@ -38,7 +40,7 @@ public class PacketReader {
         String PacketLength ="Original Packet Length : "+packet.getPacketWirelen();
         String PacketSummary="Packet Summary : "+packet.toString()+"finished";
         String PacketInfo="Packet Info : \n"+packetBytes+"\n"+PacketTotalSize+"\n"+FrameNumber+"\n"+PacketLength+"\n"+PacketSummary+"\n";
-        
+        String date = String.format("", datee);
         String FinalString="Not Initialized";
         if(packet.hasHeader(http)){
             System.out.println("<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<");
@@ -53,7 +55,7 @@ public class PacketReader {
             String HeaderDescription= "Header Description"+http.getDescription();
             String Name="Name : "+http.getName();
             String summary = http.toString();
-            FinalString = SrcPort+"\n"+DesPort+"\n"+protocol+"\n"+HeaderLength+"\n"+MessageType+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n";
+            FinalString = date+"\n"+SrcPort+"\n"+DesPort+"\n"+protocol+"\n"+HeaderLength+"\n"+MessageType+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n";
         }
         else if(packet.hasHeader(tcp)){
             tcp = packet.getHeader(new Tcp());
@@ -71,7 +73,7 @@ public class PacketReader {
             String sequence = "Sequence : "+tcp.seq();
             String summary = "Summary : "+tcp.toString();
            
-            FinalString=SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+ID+"\n"+HeaderContentByte+"\n"
+            FinalString=date+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+ID+"\n"+HeaderContentByte+"\n"
                     +Name+"\n"+ack+"\n"+CheckSum+"\n"
                     +CheckSumDescription+"\n"+SrcPort+"\n"+RecPort+"\n"+hlen+"\n"+sequence+"\n"+summary+"\n";
             
@@ -92,7 +94,7 @@ public class PacketReader {
             String Payload = "The playload data portion of the packet right after the current header : "+udp.getPayload();
             String summary = "Summary : "+udp.toString();
             
-            FinalString=SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+HeaderContentByte+"\n"+HeaderDescription+"\n"+
+            FinalString=datee+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+HeaderContentByte+"\n"+HeaderDescription+"\n"+
                     Name+"\n"+CheckSum+"\n"+CheckSumDescription+"\n"+Payload+"\n"+summary;
         }
         
