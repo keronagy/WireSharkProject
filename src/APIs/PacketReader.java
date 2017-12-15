@@ -47,9 +47,9 @@ public class PacketReader {
             http= packet.getHeader(new Http());
             String protocol = "HTTP";
             String ID=""+http.getId();
-            String DesPort = "Destination Port "+http.getDescription();
-            String SrcPort = "Src Port"+"";
-            String HeaderLength = "Header Length : "+http.getHeaderLength();
+            String DesPort = ""+http.getDescription();
+            String SrcPort = ""+"";
+            String HeaderLength = ""+http.getHeaderLength();
             String MessageType="Message Type"+http.getMessageType();
             String ContentType="Content Type : "+http.contentType();
             String HeaderDescription= "Header Description"+http.getDescription();
@@ -61,15 +61,15 @@ public class PacketReader {
             tcp = packet.getHeader(new Tcp());
             String protocol="TCP";
             String ID = "ID : "+tcp.getId();
-            String HeaderLength = "Header Length : "+tcp.getHeaderLength();
-            String SrcPort = "Source Port : "+tcp.source();
-            String RecPort="Reciever's Port : "+tcp.destination();
+            String HeaderLength = ""+tcp.getHeaderLength();
+            String SrcPort = ""+tcp.source();
+            String RecPort=""+tcp.destination();
             String HeaderContentByte = "The content of the Header as a byte array : "+tcp.getHeader();
             String Name="Name : "+tcp.getName();
             String ack = "Ack : "+tcp.ack();
             String CheckSum="CheckSum : "+tcp.checksum();
             String CheckSumDescription = "CheckSum Description : "+tcp.checksumDescription();
-            String hlen = "Header Length"+tcp.hlen();
+            String hlen = ""+tcp.hlen();
             String sequence = "Sequence : "+tcp.seq();
             String summary = "Summary : "+tcp.toString();
            
@@ -83,9 +83,9 @@ public class PacketReader {
             udp = packet.getHeader(new Udp());
             String protocol = "UDP";
             String ID = "ID : "+udp.getId();
-            String HeaderLength="Header Length : "+udp.getHeaderLength();
-            String SrcPort = "Source Port : "+udp.source();
-            String RecPort="Reciever's Port : "+udp.destination();
+            String HeaderLength=""+udp.getHeaderLength();
+            String SrcPort = ""+udp.source();
+            String RecPort=""+udp.destination();
             String HeaderContentByte = "The content of the Header as a byte array : "+udp.getHeader();
             String HeaderDescription = "Header Description : "+udp.getDescription();
             String Name="Name : "+udp.getName();
@@ -94,7 +94,7 @@ public class PacketReader {
             String Payload = "The playload data portion of the packet right after the current header : "+udp.getPayload();
             String summary = "Summary : "+udp.toString();
             
-            FinalString=datee+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+HeaderContentByte+"\n"+HeaderDescription+"\n"+
+            FinalString=date+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+HeaderContentByte+"\n"+HeaderDescription+"\n"+
                     Name+"\n"+CheckSum+"\n"+CheckSumDescription+"\n"+Payload+"\n"+summary;
         }
         

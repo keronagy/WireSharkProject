@@ -5,6 +5,7 @@
  */
 package APIs;
 
+import GUI.RowPacket;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,7 @@ public class PacketCapturer {
             public void nextPacket(PcapPacket packet, String user) {  
                  PacketReader pr = new PacketReader();
                  pr.ReadPacket(packet);
+                 RowPacket.CreateRow(packet);
              }  
         };  
         try{
