@@ -36,7 +36,7 @@ public class PacketReader {
         Http http = new Http();
         Tcp tcp = new Tcp();
         
-        String packetBytes=b.toString();
+        String packetBytes=packet.toHexdump();
         String PacketTotalSize="Number of bytes currently allocated : "+packet.size();
         String FrameNumber="Frame Number : "+packet.getFrameNumber();
         String PacketLength ="Original Packet Length : "+packet.getPacketWirelen();
