@@ -16,7 +16,7 @@ import org.jnetpcap.protocol.tcpip.*;
 import org.jnetpcap.protocol.tcpip.Udp;
 
 
-//import net.sourceforge.jpcap.net.Packet;
+//import net.sourceforge.jpcap.net.PacketReader;
 /**
  *
  * @author Mina
@@ -26,83 +26,109 @@ import org.jnetpcap.protocol.tcpip.Udp;
 public class PacketReader {
     
     public static int PacketNum=0;
-    public String ReadPacket(PcapPacket packet){
-        byte b[]= new byte[50];
-        b=packet.getByteArray(0, b);
+    private String PacketData;
+    private String PacketBytes;
+    private int[] featuresList;
+    private int packetSize;
+    private long FrameNumber;
+    private int PacketLength;
+    private Date datee;
+    private String protocol;
+    private int ID;
+    private int DesPort;
+    int SrcPort;
+    int DstPort;
+    int HeaderLength;
+    long ack;
+    long CheckSum;
+    long seqNum;
+    int Payload;
+    
+    private int HexaToDec(String s)
+    {
+        int val=0;        
+        return val;
+    }
+
+    private void ConstructFeaturesList()
+    {
+        
+        //featuresList = new int[number of properties in this class];
+        
+        
+    }
+    
+    public int[] getFeaturesList()
+    {
+        
+        return featuresList;
+    }
+    
+    public void ReadPacket(PcapPacket packet){
         Udp udp = new Udp();
         Http http = new Http();
         Tcp tcp = new Tcp();
-        Date datee = new Date();
         
-        String packetBytes=packet.toHexdump();
-        String PacketTotalSize="Number of bytes currently allocated : "+packet.size();
-        String FrameNumber="Frame Number : "+packet.getFrameNumber();
-        String PacketLength ="Original Packet Length : "+packet.getPacketWirelen();
-        String PacketSummary="Packet Summary : "+packet.toString()+"finished";
-        String PacketInfo="Packet Info : \n"+packetBytes+"\n"+PacketTotalSize+"\n"+FrameNumber+"\n"+PacketLength+"\n"+PacketSummary+"\n";
-        String date = String.format("", datee);
-        String FinalString="Not Initialized";
+        PacketBytes =packet.toHexdump();      
+        packetSize = packet.size();
+        FrameNumber = packet.getFrameNumber();
+        PacketLength = packet.getPacketWirelen();
+        
         if(packet.hasHeader(http)){
-            System.out.println("<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<<<<<<<<<<<\n<<<<<<<<<<<<<");
             http= packet.getHeader(new Http());
-            String protocol = "HTTP";
-            String ID=""+http.getId();
-            String DesPort = ""+http.getDescription();
-            String SrcPort = ""+"";
-            String HeaderLength = ""+http.getHeaderLength();
-            String MessageType="Message Type"+http.getMessageType();
-            String ContentType="Content Type : "+http.contentType();
-            String HeaderDescription= "Header Description"+http.getDescription();
-            String Name="Name : "+http.getName();
-            String summary = http.toString();
-            FinalString = date+"\n"+SrcPort+"\n"+DesPort+"\n"+protocol+"\n"+HeaderLength+"\n"+MessageType+"\n"+ContentType+"\n"+HeaderDescription+"\n"+Name+"\n"+ID+"\n"+summary+"\n";
+            protocol = "HTTP";
+            ID = http.getId();
+            //DesPort = http.getDescription();
+            //SrcPort = ""+"";
+            HeaderLength = http.getHeaderLength();
+            //String MessageType="Message Type"+http.getMessageType();
+            //String ContentType="Content Type : "+http.contentType();
+            //String HeaderDescription= "Header Description"+http.getDescription();
+            //String Name="Name : "+http.getName();
         }
         else if(packet.hasHeader(tcp)){
             tcp = packet.getHeader(new Tcp());
-            String protocol="TCP";
-            String ID = "ID : "+tcp.getId();
-            String HeaderLength = ""+tcp.getHeaderLength();
-            String SrcPort = ""+tcp.source();
-            String RecPort=""+tcp.destination();
-            String HeaderContentByte = "The content of the Header as a byte array : "+tcp.getHeader();
-            String Name="Name : "+tcp.getName();
-            String ack = "Ack : "+tcp.ack();
-            String CheckSum="CheckSum : "+tcp.checksum();
-            String CheckSumDescription = "CheckSum Description : "+tcp.checksumDescription();
-            String hlen = ""+tcp.hlen();
-            String sequence = "Sequence : "+tcp.seq();
-            String summary = "Summary : "+tcp.toString();
-           
-            FinalString=date+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+ID+"\n"+HeaderContentByte+"\n"
-                    +Name+"\n"+ack+"\n"+CheckSum+"\n"
-                    +CheckSumDescription+"\n"+SrcPort+"\n"+RecPort+"\n"+hlen+"\n"+sequence+"\n"+summary+"\n";
-            
+            protocol="TCP";
+            ID = tcp.getId();
+            HeaderLength = tcp.getHeaderLength();
+            SrcPort = tcp.source();
+            DstPort= tcp.destination();
+           // HeaderContentByte = "The content of the Header as a byte array : "+tcp.getHeader();
+            //String Name="Name : "+tcp.getName();
+            ack = tcp.ack();
+            CheckSum = tcp.checksum();
+            HeaderLength = tcp.hlen();
+            seqNum = tcp.seq();
+              
         }
-        else if(packet.hasHeader(udp)){
-            System.out.println("UDP");
+        else if(packet.hasHeader(new Udp())){
             udp = packet.getHeader(new Udp());
-            String protocol = "UDP";
-            String ID = "ID : "+udp.getId();
-            String HeaderLength=""+udp.getHeaderLength();
-            String SrcPort = ""+udp.source();
-            String RecPort=""+udp.destination();
-            String HeaderContentByte = "The content of the Header as a byte array : "+udp.getHeader();
-            String HeaderDescription = "Header Description : "+udp.getDescription();
-            String Name="Name : "+udp.getName();
-            String CheckSum="CheckSum : "+udp.checksum();
-            String CheckSumDescription = "CheckSum Description : "+udp.checksumDescription();
-            String Payload = "The playload data portion of the packet right after the current header : "+udp.getPayload();
-            String summary = "Summary : "+udp.toString();
+            protocol = "UDP";
+            ID = udp.getId();
+            HeaderLength = udp.getHeaderLength();
+            SrcPort = udp.source();
+            DesPort= udp.destination();
+           // String HeaderContentByte = "The content of the Header as a byte array : "+udp.getHeader();
+            CheckSum = udp.checksum();
+            //Payload = udp.getPayload().toString();
             
-            FinalString=date+"\n"+SrcPort+"\n"+RecPort+"\n"+protocol+"\n"+HeaderLength+"\n"+HeaderContentByte+"\n"+HeaderDescription+"\n"+
-                    Name+"\n"+CheckSum+"\n"+CheckSumDescription+"\n"+Payload+"\n"+summary;
+            
+   
         }
         
+        //else if dns
+        //else if arp
+        //else if icmp
         
-      System.out.println(FinalString+PacketInfo);
-      return FinalString+PacketInfo;
+        
     }
-
-
+    
+    public String[] getStringArray()
+    {
+     //return a string that contains all packets data
+        String[] packetString = {""};
+        return packetString;
+    }
+    
 }
  

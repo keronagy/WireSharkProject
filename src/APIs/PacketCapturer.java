@@ -22,14 +22,21 @@ import org.jnetpcap.protocol.tcpip.Udp;
  */
 public class PacketCapturer {
     Pcap pcap;
+    ArrayList PacketsStringList;
+    int [][] featuresList;
+    public PacketCapturer() {
+        PacketsStringList = new ArrayList();
+        featuresList = new int[Constants.n][Constants.m]; //bonus stuff
+    }
+    
     public void StartCapture(int InterfaceIndex){
         OpenNetworkInterface(InterfaceIndex);
         PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {  
             @Override
             public void nextPacket(PcapPacket packet, String user) {  
                  PacketReader pr = new PacketReader();
-                 pr.ReadPacket(packet);
-                 RowPacket.CreateRow(packet);
+                 PacketsStringList.add(pr.toString());
+                 //RowPacket.CreateRow(packet);
              }  
         };  
         try{
@@ -46,10 +53,10 @@ public class PacketCapturer {
         int timeout = 60 * 1000; // In milliseconds
         String device = Constants.pc.getNetworkInterfacesList().get(InterfaceIndex).getName();
         pcap=Pcap.openLive(device,snalen, promiscous, timeout, errbuf);
-        System.out.println(device);
+        //System.out.println(device);
         
         if(pcap==null){
-            System.out.println("Error when Opening the network interface with index : "+InterfaceIndex+"\nThe Errbuf is "+errbuf.toString());
+            //System.out.println("Error when Opening the network interface with index : "+InterfaceIndex+"\nThe Errbuf is "+errbuf.toString());
         }
     }
     

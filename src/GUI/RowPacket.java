@@ -21,77 +21,72 @@ public class RowPacket {
         this.Length = new SimpleStringProperty (Length);
         this.Info = new SimpleStringProperty (Info);
     }
-    public static void CreateRow (PcapPacket packet){
-        int counter=0;
-        PacketReader pr = new PacketReader();
-        String str = pr.ReadPacket(packet);
-        String Date="";
-        String SrcPort="";
-        String DesPort="";
-        String Protocol ="";
-        String Length ="";
-        String Info ="";
-        for (int i=0;i<str.length();i++){
-           if(str.charAt(i)=='+'){
-               break;
-           }
-           else{
-               Date+=str.charAt(i);
-           }
-        }
-        for (int i=0;i<str.length();i++){
-             if(str.charAt(i)=='+' && counter<4){
-               for (int j=i+1;j<str.length();j++){
-                   if(counter==0){
-                       if(str.charAt(j)!='+'){
-                       SrcPort+=str.charAt(j);
-                       continue;
-                       }
-                       counter++;
-                       break;
-                   }
-                    if(counter==1){
-                       if(str.charAt(j)!='+'){
-                       SrcPort+=str.charAt(j);
-                       continue;
-                       }
-                       counter++;
-                       break;
-                   }
-                     if(counter==2){
-                       if(str.charAt(j)!='+'){
-                       Protocol+=str.charAt(j);
-                       continue;
-                       }
-                       counter++;
-                       break;
-                   }
-                      if(counter==3){
-                       if(str.charAt(j)!='+'){
-                       Length+=str.charAt(j);
-                       continue;
-                       }
-                       counter++;
-                       break;
-                   }
-               }
-           }
-             if(counter>=4){
-                 if (str.charAt(i)!='+'){
-                     Info +=str.charAt(i);
-                 }
-             }
-        }
-        RowPacket row = new RowPacket (Date,SrcPort,DesPort,Protocol,Length,Info);
-        System.out.println(Date);
-        System.out.println(SrcPort);
-        System.out.println(DesPort);
-        System.out.println(Protocol);
-        System.out.println(Length);
-        System.out.println(Info);
-        
-      
-    }
+//    public static void CreateRow (PcapPacket packet){
+//        int counter=0;
+//        PacketReader pr = new PacketReader();
+//        String str = pr.ReadPacket(packet);
+//        String Date="";
+//        String SrcPort="";
+//        String DesPort="";
+//        String Protocol ="";
+//        String Length ="";
+//        String Info ="";
+//        for (int i=0;i<str.length();i++){
+//           if(str.charAt(i)=='+'){
+//               break;
+//           }
+//           else{
+//               Date+=str.charAt(i);
+//           }
+//        }
+//        for (int i=0;i<str.length();i++){
+//             if(str.charAt(i)=='+' && counter<4){
+//               for (int j=i+1;j<str.length();j++){
+//                   if(counter==0){
+//                       if(str.charAt(j)!='+'){
+//                       SrcPort+=str.charAt(j);
+//                       continue;
+//                       }
+//                       counter++;
+//                       break;
+//                   }
+//                    if(counter==1){
+//                       if(str.charAt(j)!='+'){
+//                       SrcPort+=str.charAt(j);
+//                       continue;
+//                       }
+//                       counter++;
+//                       break;
+//                   }
+//                     if(counter==2){
+//                       if(str.charAt(j)!='+'){
+//                       Protocol+=str.charAt(j);
+//                       continue;
+//                       }
+//                       counter++;
+//                       break;
+//                   }
+//                      if(counter==3){
+//                       if(str.charAt(j)!='+'){
+//                       Length+=str.charAt(j);
+//                       continue;
+//                       }
+//                       counter++;
+//                       break;
+//                   }
+//               }
+//           }
+//             if(counter>=4){
+//                 if (str.charAt(i)!='+'){
+//                     Info +=str.charAt(i);
+//                 }
+//             }
+//        }
+//        RowPacket row = new RowPacket (Date,SrcPort,DesPort,Protocol,Length,Info);
+//   
+//        
+//      
+//    }
     public int GetNo(){
      return No;
     }
