@@ -81,6 +81,21 @@ public class PacketReader {
     private int HexaToDec(String s)
     {
         int val=0;        
+        int tobeadded=0;
+       int power =0;
+       s= s.toLowerCase();
+       for (int i =s.length()-1;i>=0;i--){
+           if(s.charAt(i)>=97){
+               tobeadded = s.charAt(i)-87;
+               val += tobeadded * Math.pow(16, power);
+               power++;
+           }
+           else{
+               tobeadded = s.charAt(i)-'0';
+                val += tobeadded * Math.pow(16, power);
+               power++;
+           }
+    }
         return val;
     }
 
