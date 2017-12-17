@@ -29,7 +29,6 @@ public class Kmeans_Bonus {
     int K; //number of clusters
 
     public Kmeans_Bonus(byte X[][], byte K) {
-        System.out.println("test");
         this.X = X;
         n = X[0].length;
         m = X.length;
@@ -47,7 +46,7 @@ public class Kmeans_Bonus {
     }
 
 
-    double calcDist(byte[] Xrow, byte[] urow) {
+    int calcDist(byte[] Xrow, byte[] urow) {
         int dist = 0;
         for (int i = 0; i < Xrow.length; i++) {
             dist += sqrt(pow(Xrow[i], 2) - pow(urow[i], 2));
@@ -120,7 +119,7 @@ public class Kmeans_Bonus {
 
     }
 
-    void start(int[] x, int[] u) {
+    public void start() {
 
         for (int i = 0; i < 100; i++) //random number of iterations, it should be modified
         {

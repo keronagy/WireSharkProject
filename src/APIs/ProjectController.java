@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.jnetpcap.Pcap;
@@ -102,15 +103,14 @@ public class ProjectController {
 
         byte[][] X = new byte[Constants.n][Constants.m];
 
-        String fileName = "final.txt";
-        String path = "C:\\Users\\Kord\\Desktop\\college\\Networks\\project\\bonus\\packets";
+        String fileName = ProjectController.class.getResource("packets.txt").getPath();
         char c = '-';
 
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader
-                    = new FileReader(path + "\\" + fileName);
-
+                    = new FileReader(fileName);
+            
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader
                     = new BufferedReader(fileReader);
@@ -123,7 +123,6 @@ public class ProjectController {
             int counter = 0;
             while ((c = (char) bufferedReader.read()) != 'x') {
                 elem += c;
-
                 if (c == '|') {
                     elem = "";
 
@@ -147,7 +146,7 @@ public class ProjectController {
                 }
 
             }
-            // Always close files.
+            System.out.println(counter);
             bufferedReader.close();
 
         } catch (FileNotFoundException ex) {

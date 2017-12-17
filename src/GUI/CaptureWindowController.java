@@ -118,7 +118,7 @@ public class CaptureWindowController implements Initializable {
     public void bonusTest()
     {
         
-     Constants.pc.loadData();
+     Constants.pc.km.start();
     }
 
 }
