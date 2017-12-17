@@ -100,53 +100,61 @@ public class ProjectController {
         return val;
     }
 
-    public byte[][] loadData() {
+    public int[][] loadData() {
 
-        byte[][] X = new byte[Constants.n][Constants.m];
-
+        int[][] X = new int[Constants.n][Constants.m];
         String fileName = "packets.txt";//+ProjectController.class.getResource("packets.txt").getPath();
 
-
         char c = '-';
-
+        
         try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader
                     = new FileReader(fileName);
-            
+
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader
                     = new BufferedReader(fileReader);
-
             int k = 0;
             int i = 0;
             int j = 0;
             String elem = "";
             int val;
+
             while ((c = (char) bufferedReader.read()) != 'x') {
                 elem += c;
                 if (c == '|') {
                     elem = "";
-
                     continue;
                 } else if (c == '\n') {
                     elem = "";
+                    //System.out.println("");
                     i++;
                     j = 0;
                     continue;
                 } else {
                     k++;
                     j++;
-
                     if (k == 2) {
-                        val = HexaToDec(elem);
-                        X[i][j] = (byte) val;
+                        val =  HexaToDec(elem);
+                        try{
+                        X[j][i] = val;
+                        }catch(Exception e){
+                          e.printStackTrace();
+                                }
                         elem = "";
                         k = 0;
                     }
                 }
 
             }
+//            for (int i1 = 0; i1 < Constants.m; i1++) {
+//                for (int j1 = 0; j1 < Constants.n; j1++) {
+//                    System.out.println(X[i1][j1]);
+//                }
+//                System.out.println(" ");
+//            }
+
             bufferedReader.close();
 
         } catch (FileNotFoundException ex) {

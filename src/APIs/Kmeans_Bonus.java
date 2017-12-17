@@ -20,33 +20,32 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Kmeans_Bonus {
 
-    byte[][] X; //m*n matrix
-    byte[][] u; //K*n matrix
+    int[][] X; //m*n matrix
+    double[][] u; //K*n matrix
     String[][] tmp;
     int[] c; //closest centroid for each row in x
     int m;
     int n;
     int K; //number of clusters
 
-    public Kmeans_Bonus(byte X[][], byte K) {
+    public Kmeans_Bonus(int X[][], int K) {
         this.X = X;
-        n = X[0].length;
-        m = X.length;
+        n = X.length;
+        m = X[0].length;
         this.K = K;
-        u = new byte[K][n];
+        u = new double[K][n];
         c = new int[m];
 
         //randomaly initialize u
         for (int i = 0; i < K; i++) {
             for (int j = 0; j < n; j++) {
-                u[i][K] = (byte) ThreadLocalRandom.current().nextInt(255);
+                u[i][K] = (int) ThreadLocalRandom.current().nextInt(255);
             }
         }
 
     }
 
-
-    int calcDist(byte[] Xrow, byte[] urow) {
+    int calcDist(int[] Xrow, double[] urow) {
         int dist = 0;
         for (int i = 0; i < Xrow.length; i++) {
             dist += sqrt(pow(Xrow[i], 2) - pow(urow[i], 2));
@@ -74,7 +73,7 @@ public class Kmeans_Bonus {
 
     }
 
-    byte[] getNearestCenter(int c) {
+    int[] getNearestCenter(int c) {
         return X[c];
 
     }
@@ -96,7 +95,7 @@ public class Kmeans_Bonus {
                 u[i][j] = 0;
             }
         }
-
+        
         //move centroid
         for (int i = 0; i < K; i++) {
             int clusterSize = 0; //number of points that belongs to this cluster
@@ -106,15 +105,25 @@ public class Kmeans_Bonus {
                     clusterSize++;
                     //u  first contains the sum of all points which belong to it
                     for (int k = 0; k < n; k++) {
-                        u[i][K] += X[i][K];
+                        u[i][K] += X[i][k];
                     }
 
                 }
+                System.out.println("test" + i);
             }
+
             //divide each index with the number of points to find the mean
-            for (int tmp = 0; tmp < n; i++) {
-                u[i][tmp] /= clusterSize;
+            for (int x = 0; x < n; x++) {
+                u[i][x] /= clusterSize;
             }
+
+        }
+
+    }
+
+    public void displayCentroids() {
+        for (int i = 0; i < c.length; i++) {
+            System.out.println("packet: " + i + "cluster number: " + c[i]);
         }
 
     }
@@ -124,8 +133,11 @@ public class Kmeans_Bonus {
         for (int i = 0; i < 100; i++) //random number of iterations, it should be modified
         {
             assignPointsToCentroid();
+            System.out.println("test");
             moveCentroids();
+
         }
+        displayCentroids();
     }
 
 }
