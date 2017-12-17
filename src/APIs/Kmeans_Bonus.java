@@ -30,8 +30,8 @@ public class Kmeans_Bonus {
 
     public Kmeans_Bonus(int X[][], int K) {
         this.X = X;
-        n = X.length;
-        m = X[0].length;
+        n = X[0].length;
+        m = X.length;
         this.K = K;
         u = new double[K][n];
         c = new int[m];
@@ -55,7 +55,6 @@ public class Kmeans_Bonus {
     }
 
     void assignPointsToCentroid() {
-
         double min = 999999;
         for (int i = 0; i < m; i++) {
             double dist = 0;
@@ -95,23 +94,24 @@ public class Kmeans_Bonus {
                 u[i][j] = 0;
             }
         }
-        
+                    
+                    
         //move centroid
         for (int i = 0; i < K; i++) {
             int clusterSize = 0; //number of points that belongs to this cluster
             for (int j = 0; j < m; j++) {
                 if (c[j] == i) //point belongs to this cluster
                 {
+                     
                     clusterSize++;
                     //u  first contains the sum of all points which belong to it
                     for (int k = 0; k < n; k++) {
-                        u[i][K] += X[i][k];
+                        u[i][k] += X[i][k];
                     }
+                   
 
                 }
-                System.out.println("test" + i);
             }
-
             //divide each index with the number of points to find the mean
             for (int x = 0; x < n; x++) {
                 u[i][x] /= clusterSize;
@@ -123,17 +123,16 @@ public class Kmeans_Bonus {
 
     public void displayCentroids() {
         for (int i = 0; i < c.length; i++) {
-            System.out.println("packet: " + i + "cluster number: " + c[i]);
+            System.out.println("packet: " + i + " cluster number: " + c[i]);
         }
 
     }
 
     public void start() {
 
-        for (int i = 0; i < 100; i++) //random number of iterations, it should be modified
+        for (int i = 0; i < 20; i++) //random number of iterations, it should be modified
         {
             assignPointsToCentroid();
-            System.out.println("test");
             moveCentroids();
 
         }

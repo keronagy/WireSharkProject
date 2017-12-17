@@ -102,7 +102,7 @@ public class ProjectController {
 
     public int[][] loadData() {
 
-        int[][] X = new int[Constants.n][Constants.m];
+        int[][] X = new int[Constants.m][Constants.n];
         String fileName = "packets.txt";//+ProjectController.class.getResource("packets.txt").getPath();
 
         char c = '-';
@@ -138,7 +138,7 @@ public class ProjectController {
                     if (k == 2) {
                         val =  HexaToDec(elem);
                         try{
-                        X[j][i] = val;
+                        X[i][j] = val;
                         }catch(Exception e){
                           e.printStackTrace();
                                 }
