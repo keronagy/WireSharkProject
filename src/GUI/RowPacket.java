@@ -5,22 +5,38 @@ import javafx.beans.property.SimpleStringProperty;
 import org.jnetpcap.packet.PcapPacket;
 
 public class RowPacket {
-   public static int No;
+
+    public static int No;
     private SimpleStringProperty Time;
     private SimpleStringProperty Source;
     private SimpleStringProperty Destination;
     private SimpleStringProperty Protocol;
     private SimpleStringProperty Length;
     private SimpleStringProperty Info;
-    public RowPacket (String Time , String Source , String Destination , String Protocol , String Length , String Info){
+    private SimpleStringProperty MoreDetail; // Contains the cordions data, it will need to be parsed
+    
+    public RowPacket(String Time, String Source, String Destination, String Protocol, String Length, String Info) {
         this.No++;
-        this.Time=new SimpleStringProperty (Time);
-        this.Source= new SimpleStringProperty (Source);
-        this.Destination = new SimpleStringProperty (Destination);
-        this.Protocol = new SimpleStringProperty (Protocol);
-        this.Length = new SimpleStringProperty (Length);
-        this.Info = new SimpleStringProperty (Info);
+        this.Time = new SimpleStringProperty(Time);
+        this.Source = new SimpleStringProperty(Source);
+        this.Destination = new SimpleStringProperty(Destination);
+        this.Protocol = new SimpleStringProperty(Protocol);
+        this.Length = new SimpleStringProperty(Length);
+        this.Info = new SimpleStringProperty(Info);
     }
+
+    public RowPacket(String[] row) {
+        this.No++;
+        this.Time = new SimpleStringProperty(row[0]);
+        this.Source = new SimpleStringProperty(row[1]);
+        this.Destination = new SimpleStringProperty(row[2]);
+        this.Protocol = new SimpleStringProperty(row[3]);
+        this.Length = new SimpleStringProperty(row[4]);
+        this.Info = new SimpleStringProperty(row[5]);
+        this.MoreDetail = new SimpleStringProperty(row[6]);
+
+    }
+
 //    public static void CreateRow (PcapPacket packet){
 //        int counter=0;
 //        PacketReader pr = new PacketReader();
@@ -87,25 +103,31 @@ public class RowPacket {
 //        
 //      
 //    }
-    public int GetNo(){
-     return No;
+    public int GetNo() {
+        return No;
     }
-    public String GetTime(){
+
+    public String GetTime() {
         return Time.get();
     }
-    public String GetSource(){
+
+    public String GetSource() {
         return Source.get();
     }
-    public String GetDestination(){
+
+    public String GetDestination() {
         return Destination.get();
     }
-    public String GetProtcol (){
+
+    public String GetProtcol() {
         return Protocol.get();
     }
-    public String GetLength(){
+
+    public String GetLength() {
         return Length.get();
     }
-    public String GetInfo(){
+
+    public String GetInfo() {
         return Info.get();
     }
 }

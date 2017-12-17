@@ -110,6 +110,11 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-
+    
+    public void getPacket(RowPacket rp)
+    {
+       Constants.pc.pcapt.getLastPacket();
+        
+    }
 
 }
