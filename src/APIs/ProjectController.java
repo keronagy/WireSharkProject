@@ -6,6 +6,7 @@
 package APIs;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -103,8 +104,9 @@ public class ProjectController {
 
         byte[][] X = new byte[Constants.n][Constants.m];
 
-        String fileName = ProjectController.class.getResource("packets.txt").getPath();
-        System.out.println(fileName);
+        String fileName = "packets.txt";//+ProjectController.class.getResource("packets.txt").getPath();
+
+
         char c = '-';
 
         try {
@@ -121,7 +123,6 @@ public class ProjectController {
             int j = 0;
             String elem = "";
             int val;
-            int counter = 0;
             while ((c = (char) bufferedReader.read()) != 'x') {
                 elem += c;
                 if (c == '|') {
@@ -131,7 +132,6 @@ public class ProjectController {
                 } else if (c == '\n') {
                     elem = "";
                     i++;
-                    counter++;
                     j = 0;
                     continue;
                 } else {
@@ -147,7 +147,6 @@ public class ProjectController {
                 }
 
             }
-            System.out.println(counter);
             bufferedReader.close();
 
         } catch (FileNotFoundException ex) {
