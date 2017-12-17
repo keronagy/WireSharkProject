@@ -99,10 +99,10 @@ public class PacketReader {
         return val;
     }
 
-    private void ConstructFeaturesList()
+    private void ConstructFeaturesList(String PacketBytes)
     {
         
-        //featuresList = new int[number of properties in this class];
+        //featuresList = new int[atwal String];
         
         
     }
@@ -118,7 +118,9 @@ public class PacketReader {
         Http http = new Http();
         Tcp tcp = new Tcp();
         
-        PacketBytes =packet.toHexdump();      
+        PacketBytes =packet.toHexdump();
+        ConstructFeaturesList(PacketBytes);
+        
         length = packet.size();
         FrameNumber = packet.getFrameNumber();
         //PacketLength = packet.getPacketWirelen();

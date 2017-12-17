@@ -34,8 +34,9 @@ public class PacketCapturer {
         PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {  
             @Override
             public void nextPacket(PcapPacket packet, String user) {  
-                 PacketReader pr = new PacketReader();
-                 PacketsStringList.add(pr.toString());
+                PacketReader pr = new PacketReader();
+                pr.ReadPacket(packet);
+                 PacketsStringList.add(pr.getStringArray());
                  //RowPacket.CreateRow(packet);
              }  
         };  
