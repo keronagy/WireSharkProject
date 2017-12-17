@@ -27,57 +27,21 @@ public class PacketReader {
     
        
     //general data
-    private Date datee;
+    private int packetNumber;
+    private Date Time;
     private String PacketBytes;
-    private int DesPort;
-    int SrcPort;
+    private int Source;
+    private int Destination;
     private String protocol;
     private int length;
     private String info;
-    private int ID;
-    
-            //more details window
-                                            
-    //frame
-    private int InterfaceId;
-    private int EpochTime;
-    private long FrameNumber;
-    private int FrameLength;
-    
-    //ethernet
-    private String EthernetDest;
-    private String EthernetSource;
-    
-    //internet protocol version
-    private int IPversion;
-    private int HeaderLeangth;
-    private int IPid;
-    private boolean fragmentflag;
-    private int fragmentOffset;
-    private int timeToLive;
+    private String MoreDetails;
     
     
-    //tcp and udp
-    private int sourcePort;
-    private int DistinationPort;
-    private int checkSum;
-    //tcp only
-    private int seqNumber;
-    private int ackNumber;
-    private int windowSize;
-    
-    
-    
-    //http only
-    String host;
-    String ConnectionType;
-    String userAgent;
-    String AcceptEncoding;
-    
-    
+
     //bonus
     private int[] featuresList;
-
+    private static int counter =0;
     private int HexaToDec(String s)
     {
         int val=0;        
@@ -118,17 +82,18 @@ public class PacketReader {
         Http http = new Http();
         Tcp tcp = new Tcp();
         
-        PacketBytes =packet.toHexdump();
-        ConstructFeaturesList(PacketBytes);
         
+        PacketBytes =packet.toHexdump();        
+        ConstructFeaturesList(PacketBytes); 
         length = packet.size();
-        FrameNumber = packet.getFrameNumber();
+        
+        //FrameNumber = packet.getFrameNumber();
         //PacketLength = packet.getPacketWirelen();
         
         if(packet.hasHeader(http)){
             http= packet.getHeader(new Http());
             protocol = "HTTP";
-            ID = http.getId();
+//            ID = http.getId();
             //DesPort = http.getDescription();
             //SrcPort = ""+"";
             //HeaderLength = http.getHeaderLength();
@@ -140,9 +105,9 @@ public class PacketReader {
         else if(packet.hasHeader(tcp)){
             tcp = packet.getHeader(new Tcp());
             protocol="TCP";
-            ID = tcp.getId();
+//            ID = tcp.getId();
             //HeaderLength = tcp.getHeaderLength();
-            SrcPort = tcp.source();
+            //SrcPort = tcp.source();
             //DstPort= tcp.destination();
            // HeaderContentByte = "The content of the Header as a byte array : "+tcp.getHeader();
             //String Name="Name : "+tcp.getName();
@@ -155,10 +120,10 @@ public class PacketReader {
         else if(packet.hasHeader(new Udp())){
             udp = packet.getHeader(new Udp());
             protocol = "UDP";
-            ID = udp.getId();
+//            ID = udp.getId();
 //            HeaderLength = udp.getHeaderLength();
-            SrcPort = udp.source();
-            DesPort= udp.destination();
+//            SrcPort = udp.source();
+//            DesPort= udp.destination();
            // String HeaderContentByte = "The content of the Header as a byte array : "+udp.getHeader();
 //            CheckSum = udp.checksum();
             //Payload = udp.getPayload().toString();
