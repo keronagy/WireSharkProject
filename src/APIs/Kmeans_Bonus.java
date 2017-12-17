@@ -5,8 +5,13 @@
  */
 package APIs;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import static java.lang.Math.*;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -14,70 +19,67 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Kord
  */
 public class Kmeans_Bonus {
-    
-    double [][] X; //m*n matrix
-    double [][] u; //K*n matrix
-    int [] c; //closest centroid for each row in x
+
+    byte[][] X; //m*n matrix
+    byte[][] u; //K*n matrix
+    String[][] tmp;
+    int[] c; //closest centroid for each row in x
     int m;
     int n;
     int K; //number of clusters
-    public Kmeans_Bonus(double X[][], int K) {
-       this.X = X;
-       n = X[0].length;
-       m = X.length;
-       this.K = K;
-       u = new double[K][n];
-       c = new int [m];
-       
-       //randomaly initialize u
-       for(int i=0; i<K; i++)
-       {
-          for(int j=0; j<n; j++)
-            u[i][K] = ThreadLocalRandom.current().nextDouble(0, 1000000);
-       }
-        
+
+    public Kmeans_Bonus(byte X[][], byte K) {
+        System.out.println("test");
+        this.X = X;
+        n = X[0].length;
+        m = X.length;
+        this.K = K;
+        u = new byte[K][n];
+        c = new int[m];
+
+        //randomaly initialize u
+        for (int i = 0; i < K; i++) {
+            for (int j = 0; j < n; j++) {
+                u[i][K] = (byte) ThreadLocalRandom.current().nextInt(255);
+            }
+        }
+
     }
-    
-    
-    double calcDist(double [] Xrow, double [] urow)
-    {
-        int dist=0;
-        for(int i=0; i<Xrow.length; i++)
-            dist += sqrt(pow(Xrow[i],2) - pow(urow[i],2));
-       
+
+
+    double calcDist(byte[] Xrow, byte[] urow) {
+        int dist = 0;
+        for (int i = 0; i < Xrow.length; i++) {
+            dist += sqrt(pow(Xrow[i], 2) - pow(urow[i], 2));
+        }
+
         return dist;
     }
-    
-    void assignPointsToCentroid()
-    {
-        
+
+    void assignPointsToCentroid() {
+
         double min = 999999;
-        for(int i=0; i<m; i++)
-        {
-            double dist =0;
-            int clusterNumber=-1;
-           for(int j=0; j<K; j++)
-           {
-              dist = calcDist(X[i],u[j]);
-               if(dist <= min)
-               {
-                   min = dist;
-                   clusterNumber = j;
-                   
-               }
+        for (int i = 0; i < m; i++) {
+            double dist = 0;
+            int clusterNumber = -1;
+            for (int j = 0; j < K; j++) {
+                dist = calcDist(X[i], u[j]);
+                if (dist <= min) {
+                    min = dist;
+                    clusterNumber = j;
+
+                }
             }
-           c[i] = clusterNumber;
+            c[i] = clusterNumber;
         }
-        
-        
+
     }
-    
-    double [] getNearestCenter(int c)
-    {
-       return X[c];
-        
+
+    byte[] getNearestCenter(int c) {
+        return X[c];
+
     }
-    
+
 //    double sumVector(double [] vect)
 //    {
 //        double sum = 0;
@@ -87,49 +89,44 @@ public class Kmeans_Bonus {
 //        
 //        return sum;
 //    }
-    
-    void moveCentroids()
-    {
-     
+    void moveCentroids() {
+
         //reset Centroid
-        for(int i=0; i<K;i++)
-            for(int j=0; j<n;j++)
+        for (int i = 0; i < K; i++) {
+            for (int j = 0; j < n; j++) {
                 u[i][j] = 0;
-        
-        
-        //move centroid
-        for(int i=0; i<K; i++)
-            {
-             int clusterSize=0; //number of points that belongs to this cluster
-             for(int j=0; j<m; j++)
-                 if(c[j] == i) //point belongs to this cluster
-                    {
-                     clusterSize++;
-                     //u  first contains the sum of all points which belong to it
-                     for(int k =0; k<n;k++)
-                         u[i][K] += X[i][K];
-                         
-                    }
-             //divide each index with the number of points to find the mean
-             for(int tmp=0; tmp<n;i++)
-                 u[i][tmp] /= clusterSize;
             }
+        }
+
+        //move centroid
+        for (int i = 0; i < K; i++) {
+            int clusterSize = 0; //number of points that belongs to this cluster
+            for (int j = 0; j < m; j++) {
+                if (c[j] == i) //point belongs to this cluster
+                {
+                    clusterSize++;
+                    //u  first contains the sum of all points which belong to it
+                    for (int k = 0; k < n; k++) {
+                        u[i][K] += X[i][K];
+                    }
+
+                }
+            }
+            //divide each index with the number of points to find the mean
+            for (int tmp = 0; tmp < n; i++) {
+                u[i][tmp] /= clusterSize;
+            }
+        }
 
     }
-        
-    
-    
-    
-    void start(int[]x, int[]u)
-    {
-        
-        for(int i=0; i<100; i++) //random number of iterations, it should be modified
-       {
-        assignPointsToCentroid();
-        moveCentroids();
-       }
+
+    void start(int[] x, int[] u) {
+
+        for (int i = 0; i < 100; i++) //random number of iterations, it should be modified
+        {
+            assignPointsToCentroid();
+            moveCentroids();
+        }
     }
-    
-    
-    
+
 }

@@ -3,95 +3,166 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package APIs;   
+package APIs;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import org.jnetpcap.*;
+import org.jnetpcap.Pcap;
+import org.jnetpcap.PcapIf;
 
 /**
  *
- * @author Kero & kk & Mina & Osama
+ * @author Kord
  */
-public class ProjectController extends Application {
-    
+public class ProjectController {
+
     private PacketCapturer pcapt;
     public int NetworkInterfaceIndex; //it's static as when opening the capture window, it will capture only from a pre-specified interface
     private ArrayList<PcapIf> NetworkDevicesList;
+    public Kmeans_Bonus km;
+    Thread t;
 
     public ProjectController() {
+        km = new Kmeans_Bonus(loadData(), Constants.k);
         pcapt = new PacketCapturer();
         NetworkDevicesList = new ArrayList();
+
     }
-    
+
     class CapturerThread implements Runnable {
+
         @Override
         public void run() {
-        pcapt.StartCapture(NetworkInterfaceIndex);               
-            }
-       }
-    
-    public void startCapturing(){
-     
-       
+            pcapt.StartCapture(NetworkInterfaceIndex);
+        }
+    }
+
+    public void startCapturing() {
+
         CapturerThread ct = new CapturerThread();
         Thread t = new Thread(ct);
         t.start();
-        
+
     }
-    
-    public void stopCapturing(){
+
+    public void stopCapturing() {
         pcapt.stopCapturing();
+
     }
-    
-    public void setNetworkInterfaceIndex(int Index){
-       NetworkInterfaceIndex=Index;
+
+    public void setNetworkInterfaceIndex(int Index) {
+        NetworkInterfaceIndex = Index;
     }
-    
-    public ArrayList<PcapIf> getNetworkInterfacesList(){
+
+    public ArrayList<PcapIf> getNetworkInterfacesList() {
         return NetworkDevicesList;
     }
-    
-    public int getNetworkInterfaceIndex(){
+
+    public int getNetworkInterfaceIndex() {
         return NetworkInterfaceIndex;
     }
-    
-    
-    @Override
-    public void start(Stage stage) throws Exception {
 
-        Constants.pc = new ProjectController();
-            
-try{
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/FXMLDocument.fxml"));
-            Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
-}catch(Exception e){
-    System.out.println(e.getCause());
-}
-    
-    }
-    
-    
-    public List getNics()
-    {
+    public List getNics() {
         NetworkDevicesList = new ArrayList<PcapIf>(); // Will be filled with NICs   
         StringBuilder ErrorBuffer = new StringBuilder();     // For any error msgs          
-       
+
         int ErrorFlag = Pcap.findAllDevs(NetworkDevicesList, ErrorBuffer);
-        
-        if(ErrorFlag!=Pcap.OK){
-            System.out.println("Error in Network Device List "+ErrorBuffer.toString());
+
+        if (ErrorFlag != Pcap.OK) {
+            System.out.println("Error in Network Device List " + ErrorBuffer.toString());
         }
-        
+
         return NetworkDevicesList;
     }
+
+    private int HexaToDec(String s) {
+        int val = 0;
+        int tobeadded = 0;
+        int power = 0;
+        s = s.toLowerCase();
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) >= 97) {
+                tobeadded = s.charAt(i) - 87;
+                val += tobeadded * Math.pow(16, power);
+                power++;
+            } else {
+                tobeadded = s.charAt(i) - '0';
+                val += tobeadded * Math.pow(16, power);
+                power++;
+            }
+        }
+        return val;
+    }
+
+    public byte[][] loadData() {
+
+        byte[][] X = new byte[Constants.n][Constants.m];
+
+        String fileName = "final.txt";
+        String path = "C:\\Users\\Kord\\Desktop\\college\\Networks\\project\\bonus\\packets";
+        char c = '-';
+
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader
+                    = new FileReader(path + "\\" + fileName);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader
+                    = new BufferedReader(fileReader);
+
+            int k = 0;
+            int i = 0;
+            int j = 0;
+            String elem = "";
+            int val;
+            int counter = 0;
+            while ((c = (char) bufferedReader.read()) != 'x') {
+                elem += c;
+
+                if (c == '|') {
+                    elem = "";
+
+                    continue;
+                } else if (c == '\n') {
+                    elem = "";
+                    i++;
+                    counter++;
+                    j = 0;
+                    continue;
+                } else {
+                    k++;
+                    j++;
+
+                    if (k == 2) {
+                        val = HexaToDec(elem);
+                        X[i][j] = (byte) val;
+                        elem = "";
+                        k = 0;
+                    }
+                }
+
+            }
+            // Always close files.
+            bufferedReader.close();
+
+        } catch (FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '"
+                    + fileName + "'");
+        } catch (IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                    + fileName + "'");
+            // Or we could just do this: 
+            // ex.printStackTrace();
+        }
+
+        return X;
+    }
+
 }

@@ -114,5 +114,11 @@ public class CaptureWindowController implements Initializable {
         //DO NOT WRITE ANYTHING NEW HERE
         Constants.pc.stopCapturing();
     }
+    
+    public void bonusTest()
+    {
+        
+     Constants.pc.loadData();
+    }
 
 }

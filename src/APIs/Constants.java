@@ -11,7 +11,8 @@ package APIs;
  */
 public class Constants {
     public static ProjectController pc;
-    public static int n = 10;
-    public static int m = 1000;
+    public static int n = 9705;
+    public static int m = 3000;
+    public static byte k = 5;
     
 }
