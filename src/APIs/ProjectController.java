@@ -104,6 +104,7 @@ public class ProjectController {
         byte[][] X = new byte[Constants.n][Constants.m];
 
         String fileName = ProjectController.class.getResource("packets.txt").getPath();
+        System.out.println(fileName);
         char c = '-';
 
         try {
