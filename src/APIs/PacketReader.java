@@ -161,6 +161,45 @@ public class PacketReader {
             protocolCordion = icmp.toString();
         }
 
+        if(protocol==null || protocol.equals(""))
+            protocol= "null";
+        if(info == null || info.equals(""))
+        {
+            info = "null";
+        }
+        if(Source == null || Source.equals(""))
+        {
+            Source = "null";
+        }
+        if(Destination == null || Destination.equals(""))
+        {
+            Destination = "null";
+        }
+        if(Destination == null || Destination.equals(""))
+        {
+            Destination = "null";
+        }
+        if(protocolCordion == null|| protocolCordion.equals(""))
+        {
+            protocolCordion= "null";
+        }
+        if(ipCordion == null|| ipCordion.equals(""))
+        {
+            ipCordion= "null";
+        }
+        if(frameCordion == null|| frameCordion.equals(""))
+        {
+            frameCordion= "null";
+        }
+        if(EthernetCordion == null|| EthernetCordion.equals(""))
+        {
+            EthernetCordion= "null";
+        }
+        if(PacketBytes == null|| PacketBytes.equals(""))
+        {
+            PacketBytes= "null";
+        }
+        
         
         return new String[]{"" + Time, Source, Destination, protocol, "" + length, info, PacketBytes, frameCordion,EthernetCordion,ipCordion,protocolCordion};
     }

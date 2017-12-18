@@ -232,19 +232,17 @@ public class CaptureWindowController implements Initializable {
             }
             if (row.getTime().toLowerCase().contains(lowerCaseFilter)) {
                 return true; // Filter matches first name.
-            } else if (row.getSource().toLowerCase().contains(lowerCaseFilter)) {
+            } else if (row.getSource().contains(lowerCaseFilter)) {
                 return true; // Filter matches last name.
             }
-            else if (row.getSource().toLowerCase().contains(lowerCaseFilter)) {
-                return true; // Filter matches last name.
-            }
-            else if (row.getDestination().toLowerCase().contains(lowerCaseFilter)) {
+            
+            else if (row.getDestination().contains(lowerCaseFilter)) {
                 return true; // Filter matches last name.
             }
             else if (row.getProtocol().toLowerCase().contains(lowerCaseFilter)) {
                 return true; // Filter matches last name.
             }
-            else if (row.getLength().toLowerCase().contains(lowerCaseFilter)) {
+            else if (row.getLength().contains(lowerCaseFilter)) {
                 return true; // Filter matches last name.
             }
             else if (row.getInfo().toLowerCase().contains(lowerCaseFilter)) {
@@ -253,9 +251,9 @@ public class CaptureWindowController implements Initializable {
             return false; // Does not match.
         });
     });
-            //SortedList<RowPacket> sortedData = new SortedList<>(filteredData);
-            //sortedData.comparatorProperty().bind(PacketsTable.comparatorProperty());
-            PacketsTable.setItems(filteredData);
+            SortedList<RowPacket> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(PacketsTable.comparatorProperty());
+            PacketsTable.setItems(sortedData);
             
     }
 
@@ -320,25 +318,25 @@ public class CaptureWindowController implements Initializable {
         
         HEXText.setText(r.getHexView());
         //InfoText.setText(r.getMoreDetail());
-        if(!(r.getFrameCordion().equals("")))
+        if(!(r.getFrameCordion().equals("null")))
         {
             frame.setVisible(true);
             frameText.setText(r.getFrameCordion());
         }
        
-        if(!(r.getEthernetCordion().equals("")))
+        if(!(r.getEthernetCordion().equals("null")))
         {
             ethernet.setVisible(true);
             ethernetText.setText(r.getEthernetCordion());
         }
         
-        if(!(r.getIpCordion().equals("")))
+        if(!(r.getIpCordion().equals("null")))
         {
             ip.setVisible(true);
             ipText.setText(r.getIpCordion());
         }
         
-        if(!(r.getProtocolCordion().equals("")))
+        if(!(r.getProtocolCordion().equals("null")))
         {
             protocol.setVisible(true);
             protocolText.setText(r.getProtocolCordion());
@@ -359,6 +357,7 @@ public class CaptureWindowController implements Initializable {
         ethernet.setVisible(false);
         ip.setVisible(false);
         Packets.clear();
+        RowPacket.count=1;
     }
     
     public void filter()
