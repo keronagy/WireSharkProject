@@ -53,7 +53,7 @@ public class PacketCapturer {
         try {
             pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
         } catch (Exception e) {
-            System.out.println("Exception");
+            System.out.println("Exception"+e.toString()+e.getMessage());
         };
     }
 
