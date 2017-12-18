@@ -220,5 +220,10 @@ public class CaptureWindowController implements Initializable {
 
         Constants.pc.km.start();
     }
+    
+    public void ShowHexValues(ActionEvent e)
+    {
+        PacketsTable.getSelectionModel().getSelectedItem().getHexView();
+    }
 
 }
