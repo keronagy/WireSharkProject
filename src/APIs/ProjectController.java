@@ -27,9 +27,10 @@ public class ProjectController {
     private ArrayList<PcapIf> NetworkDevicesList;
     public Kmeans_Bonus km;
     Thread t;
+    public String filename;
 
     public ProjectController() {
-        km = new Kmeans_Bonus(loadData(), Constants.k);
+        km = new Kmeans_Bonus(loadData(filename), Constants.k);
         pcapt = new PacketCapturer();
         NetworkDevicesList = new ArrayList();
 
@@ -100,10 +101,9 @@ public class ProjectController {
         return val;
     }
 
-    public int[][] loadData() {
+    public int[][] loadData(String fileName) {
 
         int[][] X = new int[Constants.m][Constants.n];
-        String fileName = "packets.txt";//+ProjectController.class.getResource("packets.txt").getPath();
 
         char c = '-';
         

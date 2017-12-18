@@ -77,7 +77,6 @@ public class PacketReader {
         
         PacketBytes =packet.toHexdump();        
         ConstructFeaturesList(PacketBytes); 
-        System.out.println("PacketBytes"+PacketBytes);
         
         //packet Length 
         length = packet.size();
@@ -87,14 +86,8 @@ public class PacketReader {
             byte[] b = packet.getHeader(ip).source();
             try {
                 Source = Inet4Address.getByAddress(b).getHostAddress();
-            } catch (UnknownHostException ex) {
-                System.out.println(ex.toString()+"asdasdasda");
-            }
-            b=packet.getHeader(ip).destination();
-            try {
                 Destination=Inet4Address.getByAddress(b).getHostAddress();
             } catch (UnknownHostException ex) {
-                System.out.println(ex.toString()+"asdasdasda");
             }
         }
         if(packet.hasHeader(http)){
@@ -151,16 +144,6 @@ public class PacketReader {
         //else if arp
         //else if icmp
         
-     
-//        AllInfo.add(Time);//0
-//        AllInfo.add(PacketBytes);//1
-//        AllInfo.add(Source);//2
-//        AllInfo.add(Destination);//3
-//        AllInfo.add(protocol);//4 
-//        AllInfo.add(length);
-//        AllInfo.add(info);
-//        AllInfo.add(MoreDetails);
-       System.out.println(MoreDetails);
     return new String[]{""+Time,Source,Destination,protocol,""+length,info,PacketBytes,MoreDetails};
     }  
     
