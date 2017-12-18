@@ -73,7 +73,7 @@ public class PacketCapturer {
         int snalen = 64 * 1024;           // Capture all packets, no truncation 
         int promiscous = Pcap.MODE_PROMISCUOUS;
         // InterfaceIndex = 2; //for kord
-        int timeout = 60 * 1000; // In milliseconds
+        int timeout = 60 * 10; // In milliseconds
         String device = Constants.pc.getNetworkInterfacesList().get(InterfaceIndex).getName();
         pcap = Pcap.openLive(device, snalen, promiscous, timeout, errbuf);
         //System.out.println(device);
