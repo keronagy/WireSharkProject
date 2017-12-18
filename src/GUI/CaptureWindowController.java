@@ -49,22 +49,22 @@ public class CaptureWindowController implements Initializable {
     @FXML
     private Button LoadBtn;
     
-//    @FXML
-//    private TableView<RowPacket> PacketsTable;
-////    @FXML
-////    private TableColumn<RowPacket, Integer> No;
-//    @FXML
-//    private TableColumn<RowPacket, String> Time;
-//    @FXML
-//    private TableColumn<RowPacket, String> Source;
-//    @FXML
-//    private TableColumn<RowPacket, String> Destination;
-//    @FXML
-//    private TableColumn<RowPacket, String> Protocol;
-//    @FXML
-//    private TableColumn<RowPacket, String> Length;
-//    @FXML
-//    private TableColumn<RowPacket, String> Info;
+    @FXML
+    private TableView<RowPacket> PacketsTable;
+    @FXML
+    private TableColumn<RowPacket, Integer> No;
+    @FXML
+    private TableColumn<RowPacket, String> Time;
+    @FXML
+    private TableColumn<RowPacket, String> Source;
+    @FXML
+    private TableColumn<RowPacket, String> Destination;
+    @FXML
+    private TableColumn<RowPacket, String> Protocol;
+    @FXML
+    private TableColumn<RowPacket, String> Length;
+    @FXML
+    private TableColumn<RowPacket, String> Info;
 
     public void SaveBtnClicked(ActionEvent e) {
         FileChooser fc = new FileChooser();
@@ -124,13 +124,13 @@ public class CaptureWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//       // No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
-//        Time.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Time"));
-//        Source.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Source"));
-//        Destination.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Destination"));
-//        Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
-//        Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
-//        Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
+        No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
+        Time.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Time"));
+        Source.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Source"));
+        Destination.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Destination"));
+        Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
+        Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
+        Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
         
         
     }
@@ -138,14 +138,15 @@ public class CaptureWindowController implements Initializable {
     //Assuming that this is the Start Button Action method
     public void StartBtn() {
         //DO NOT WRITE ANYTHING NEW HERE
-        //ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
+        ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
         Constants.pc.startCapturing();
-//        while(true)
-//        {
-//            Packets.add(Constants.pc.pcapt.getLastPacket());
-//            //PacketsTable.setItems(Packets);
-//        }
-
+        //Packets.add(Constants.pc.pcapt.getLastPacket());
+            
+            
+        for (int i = 0; i < 10; i++) {
+            Packets.add(new RowPacket("time", "source", "Des", "proto", "len", "ino"));
+        }
+        PacketsTable.setItems(Packets);
     }
 
     //Assuming that this is the Stop Button Action method

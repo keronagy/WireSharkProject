@@ -8,15 +8,15 @@
 
 <AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CaptureWindowController">
    <children>
-      <TableView layoutX="12.0" layoutY="60.0" onSort="#StartBtn" prefHeight="200.0" prefWidth="753.0">
+      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" onSort="#StartBtn" prefHeight="200.0" prefWidth="753.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="No." />
-          <TableColumn prefWidth="75.0" text="Time" />
-            <TableColumn prefWidth="75.0" text="Source" />
-            <TableColumn prefWidth="75.0" text="Destination" />
-            <TableColumn prefWidth="75.0" text="Protocol" />
-            <TableColumn prefWidth="75.0" text="Length" />
-            <TableColumn prefWidth="75.0" text="Info" />
+          <TableColumn fx:id="No" prefWidth="75.0" text="No." />
+          <TableColumn fx:id="Time" prefWidth="75.0" text="Time" />
+            <TableColumn fx:id="Source" prefWidth="75.0" text="Source" />
+            <TableColumn fx:id="Destination" prefWidth="75.0" text="Destination" />
+            <TableColumn fx:id="Protocol" prefWidth="75.0" text="Protocol" />
+            <TableColumn fx:id="Length" prefWidth="75.0" text="Length" />
+            <TableColumn fx:id="Info" prefWidth="75.0" text="Info" />
         </columns>
       </TableView>
       <Button layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />

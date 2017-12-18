@@ -5,8 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import org.jnetpcap.packet.PcapPacket;
 
 public class RowPacket {
-
-    public static Integer No = 0;
+    private static int count = 0;
+    private  Integer No = 0;   
     private SimpleStringProperty Time;
     private SimpleStringProperty Source;
     private SimpleStringProperty Destination;
@@ -21,7 +21,7 @@ public class RowPacket {
     
     
     public RowPacket(String Time, String Source, String Destination, String Protocol, String Length, String Info) {
-        this.No++;
+        this.No= count++;
         this.Time = new SimpleStringProperty(Time);
         this.Source = new SimpleStringProperty(Source);
         this.Destination = new SimpleStringProperty(Destination);
