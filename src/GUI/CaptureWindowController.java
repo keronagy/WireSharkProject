@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -55,25 +56,13 @@ public class CaptureWindowController implements Initializable {
     private Button StartBtn;
     @FXML
     private Button StopBtn;
+    @FXML
+    private TextArea HEXText;
+    @FXML
+    private TextArea InfoText;
 
     public static ObservableList<RowPacket> Packets;
 
-//    @FXML
-//    private TableView<RowPacket> PacketsTable;
-////    @FXML
-////    private TableColumn<RowPacket, Integer> No;
-//    @FXML
-//    private TableColumn<RowPacket, String> Time;
-//    @FXML
-//    private TableColumn<RowPacket, String> Source;
-//    @FXML
-//    private TableColumn<RowPacket, String> Destination;
-//    @FXML
-//    private TableColumn<RowPacket, String> Protocol;
-//    @FXML
-//    private TableColumn<RowPacket, String> Length;
-//    @FXML
-//    private TableColumn<RowPacket, String> Info;
 
     @FXML
     private TableView<RowPacket> PacketsTable;
@@ -170,14 +159,6 @@ public class CaptureWindowController implements Initializable {
         }
     }
 
-//       // No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
-//        Time.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Time"));
-//        Source.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Source"));
-//        Destination.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Destination"));
-//        Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
-//        Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
-//        Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -219,6 +200,13 @@ public class CaptureWindowController implements Initializable {
     public void bonusTest() {
 
         Constants.pc.km.start();
+    }
+    public void ShowHexValues()
+    {
+        RowPacket r= PacketsTable.getSelectionModel().getSelectedItem();
+        HEXText.setText(r.getHexView());
+        InfoText.setText(r.getMoreDetail());
+        
     }
 
 }
