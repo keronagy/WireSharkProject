@@ -39,8 +39,8 @@ public class RowPacket {
         this.Protocol = new SimpleStringProperty(row[3]);
         this.Length = new SimpleStringProperty(row[4]);
         this.Info = new SimpleStringProperty(row[5]);
-        //this.HexView = new SimpleStringProperty(row[6]);
-        //this.MoreDetail = new SimpleStringProperty(row[7]);
+        this.HexView = new SimpleStringProperty(row[6]);
+        this.MoreDetail = new SimpleStringProperty(row[7]);
 
     }
 

@@ -66,7 +66,7 @@ public class PacketReader {
         return featuresList;
     }
     
-    public void ReadPacket(PcapPacket packet) {
+    public String[] ReadPacket(PcapPacket packet) {
         Udp udp = new Udp();
         Http http = new Http();
         Tcp tcp = new Tcp();
@@ -157,18 +157,9 @@ public class PacketReader {
 //        AllInfo.add(length);
 //        AllInfo.add(info);
 //        AllInfo.add(MoreDetails);
-        String[] row = {""+Time,Source,Destination,protocol,""+length,info};
-        RowPacket packetRow = new RowPacket(row);
-        CaptureWindowController.Packets.add(packetRow);
-        
-    }
-    
-    public String[] getStringArray()
-    {
-     //return a string that contains all packets data
-        String[] packetString = {""};
-        return packetString;
-    }
+       
+    return new String[]{""+Time,Source,Destination,protocol,""+length,info,PacketBytes,MoreDetails};
+    }  
     
     
     
