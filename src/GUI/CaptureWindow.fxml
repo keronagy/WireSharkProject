@@ -28,8 +28,8 @@
       <Button fx:id="StopBtn" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
       <Button layoutX="115.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" onMouseClicked="#reset" text="reset" />
       <TextArea fx:id="HEXText" editable="false" layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="753.0" />
-      <Button fx:id="LoadBtn" layoutX="599.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" text="Load" />
-      <Button layoutX="667.0" layoutY="13.0" mnemonicParsing="false" onAction="#bonusTest" text="Bonus test" />
+      <Button fx:id="LoadBtn" layoutX="522.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" prefHeight="25.0" prefWidth="118.0" text="Load" />
+      <Button layoutX="650.0" layoutY="13.0" mnemonicParsing="false" onAction="#bonusTest" prefHeight="25.0" prefWidth="118.0" text="Cluster" />
       <Accordion layoutX="14.0" layoutY="260.0" />
       <Pane layoutX="15.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0">
          <children>
