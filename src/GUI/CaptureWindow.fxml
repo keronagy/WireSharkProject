@@ -8,7 +8,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CaptureWindowController">
    <children>
-      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" onSort="#StartBtn" prefHeight="200.0" prefWidth="753.0">
+      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" onMouseClicked="#ShowHexValues" onSort="#StartBtn" prefHeight="200.0" prefWidth="753.0">
         <columns>
           <TableColumn fx:id="No" prefWidth="75.0" text="No." />
           <TableColumn fx:id="Time" prefWidth="75.0" text="Time" />
@@ -20,7 +20,7 @@
         </columns>
       </TableView>
       <Button fx:id="StartBtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
-      <Button fx:id="StopBtn" layoutX="64.0" layoutY="26.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
+      <Button layoutX="64.0" layoutY="26.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
       <Button layoutX="115.0" layoutY="26.0" mnemonicParsing="false" text="reset" />
       <TextArea layoutX="12.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0" />
       <TextArea layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="753.0" />
