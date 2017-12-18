@@ -41,8 +41,8 @@ public class PacketReader {
     private String Destination;//
     private String protocol;//
     private int length;//   
-    private String info="";
-    private String MoreDetails="";
+    private String info;
+    private String MoreDetails;
     ArrayList AllInfo=new ArrayList();
     
     
@@ -101,6 +101,7 @@ public class PacketReader {
             http= packet.getHeader(new Http());
             protocol = "HTTP";
             info="Header length "+http.getLength();
+            MoreDetails = http.toString();
 //              ID = http.getId();
 //            DesPort = http.getDescription();
 //            SrcPort = ""+"";
@@ -115,6 +116,7 @@ public class PacketReader {
             tcp = packet.getHeader(new Tcp());
             protocol="TCP";
             info+="Seq : "+tcp.seq()+"Ack : "+tcp.ack()+"SYN : "+tcp.flags_SYN();
+            MoreDetails = tcp.toString();
 //            ID = tcp.getId();
 //            HeaderLength = tcp.getHeaderLength();
 //            SrcPort = tcp.source();
@@ -132,6 +134,7 @@ public class PacketReader {
             udp = packet.getHeader(new Udp());
             protocol = "UDP";
             info+="LEN="+udp.length()+"Check Description"+udp.checksumDescription();
+            MoreDetails = udp.toString();
 //            ID = udp.getId();
 //            HeaderLength = udp.getHeaderLength();
 //            SrcPort = udp.source();
@@ -157,7 +160,7 @@ public class PacketReader {
 //        AllInfo.add(length);
 //        AllInfo.add(info);
 //        AllInfo.add(MoreDetails);
-       
+       System.out.println(MoreDetails);
     return new String[]{""+Time,Source,Destination,protocol,""+length,info,PacketBytes,MoreDetails};
     }  
     
