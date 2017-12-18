@@ -7,6 +7,7 @@ package APIs;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,7 @@ public class PacketReader {
     private int length;//   
     private String info;
     private String MoreDetails;
+    ArrayList AllInfo=new ArrayList();
     
     
 
@@ -138,7 +140,15 @@ public class PacketReader {
         //else if arp
         //else if icmp
         
-        
+     
+        AllInfo.add(Time);
+        AllInfo.add(PacketBytes);
+        AllInfo.add(Source);
+        AllInfo.add(Destination);
+        AllInfo.add(protocol);
+        AllInfo.add(length);
+        AllInfo.add(info);
+        AllInfo.add(MoreDetails);
     }
     
     public String[] getStringArray()
