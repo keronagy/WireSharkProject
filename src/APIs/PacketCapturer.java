@@ -28,14 +28,12 @@ import org.jnetpcap.protocol.tcpip.Udp;
 public class PacketCapturer {
 
     Pcap pcap;
-    RowPacket lrp;
     //ArrayList PacketsStringList;
     int[][] featuresList;
 
     public PacketCapturer() {
         //PacketsStringList = new ArrayList();
         featuresList = new int[Constants.n][Constants.m]; //bonus stuff
-        lrp = new RowPacket();
     }
 
     public void StartCapture(int InterfaceIndex) {
@@ -46,15 +44,10 @@ public class PacketCapturer {
             @Override
             public void nextPacket(PcapPacket packet, String user) {
                 PacketReader pr = new PacketReader();
-                pr.ReadPacket(packet);
+                String[] row = pr.ReadPacket(packet);
+                CaptureWindowController.Packets.add(new RowPacket(row));
                 dumper.dump(packet.getCaptureHeader(),packet);
-                //tmp to kiro ya mina
-                String[] row = {"Time","source","Destination","Protocol","Length","Info","Hex view","MoreDetail"};
-                RowPacket rp = new RowPacket(row);
-                CaptureWindowController.Packets.add(rp);
-                lrp = rp;
-                //PacketsStringList.add(pr.getStringArray());
-                //RowPacket.CreateRow(packet);
+              
             }
         };
 
@@ -64,10 +57,7 @@ public class PacketCapturer {
             System.out.println("Exception"+e.toString()+e.getMessage());
         };
     }
-    public RowPacket getLastPacket()
-    {
-        return lrp;
-    }
+
     public void OpenNetworkInterface(int InterfaceIndex) {
         StringBuilder errbuf = new StringBuilder();
         int snalen = 64 * 1024;           // Capture all packets, no truncation 
