@@ -108,34 +108,10 @@ public class RowPacket {
 //        
 //      
 //    }
-    public Integer GetNo() {
+
+
+    public int getNo(){
         return No;
-    }
-
-    public String GetTime() {
-        return Time.get();
-    }
-
-    public String GetSource() {
-        return Source.get();
-    }
-
-    public String GetDestination() {
-        return Destination.get();
-    }
-
-    public String GetProtcol() {
-        return Protocol.get();
-    }
-
-    public String GetLength() {
-        return Length.get();
-    }
-
-    public String GetInfo() {return Info.get();}
-
-      public int getNo(){
-     return No;
     }
     public String getTime(){
         return Time.get();
@@ -146,7 +122,7 @@ public class RowPacket {
     public String getDestination(){
         return Destination.get();
     }
-    public String getProtcol (){
+    public String getProtocol (){
         return Protocol.get();
     }
     public String getLength(){
