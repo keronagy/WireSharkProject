@@ -13,8 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +26,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -58,16 +67,38 @@ public class CaptureWindowController implements Initializable {
     private Button StopBtn;
     @FXML
     private TextArea HEXText;
-    @FXML
-    private TextArea InfoText;
-
+//    @FXML
+//    private TextArea InfoText;
     public static ObservableList<RowPacket> Packets;
+    //FilteredList<RowPacket> filteredList = new FilteredList<>(Packets);
 
+    @FXML
+    private Accordion accordion;
+    
+    @FXML
+    private TitledPane frame;
+    @FXML
+    private TitledPane ethernet;
+    @FXML
+    private TitledPane ip;
+    @FXML
+    private TitledPane protocol;
+    @FXML
+    private TextArea frameText;
+    @FXML
+    private TextArea ethernetText;
+    @FXML
+    private TextArea ipText;
+    @FXML
+    private TextArea protocolText;
+    
+    @FXML
+    private TextField filterField;
 
     @FXML
     private TableView<RowPacket> PacketsTable;
     @FXML
-    private TableColumn<RowPacket, Integer> No;
+    private TableColumn<RowPacket, String> No;
     @FXML
     private TableColumn<RowPacket, String> Time;
     @FXML
@@ -80,6 +111,7 @@ public class CaptureWindowController implements Initializable {
     private TableColumn<RowPacket, String> Length;
     @FXML
     private TableColumn<RowPacket, String> Info;
+    
 
     
     public void SaveBtnClicked(ActionEvent e) {
@@ -154,7 +186,7 @@ public class CaptureWindowController implements Initializable {
                   exp.printStackTrace();
             }
             
-            PacketsTable.setItems(Packets);
+            //PacketsTable.setItems(Packets);
 
         }
     }
@@ -162,7 +194,7 @@ public class CaptureWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
+        No.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("No"));
         Time.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Time"));
         Source.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Source"));
         Destination.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Destination"));
@@ -171,7 +203,60 @@ public class CaptureWindowController implements Initializable {
         Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
         StopBtn.setDisable(true);
         Packets = FXCollections.observableArrayList();
+        
+        PacketsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+        @Override
+        public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+            //Check whether item is selected and set value of selected item to Label
+            if(PacketsTable.getSelectionModel().getSelectedItem() != null) 
+            {    
+               ShowValues(PacketsTable.getSelectionModel().getSelectedItem()) ;
+             }
+             }
+         });
+        
+            FilteredList<RowPacket> filteredData = new FilteredList<>(Packets, p -> true);
+            
+            filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(row -> {
+            // If filter text is empty, display all persons.
+            if (newValue == null || newValue.isEmpty()) {
+                return true;
+            }
 
+            // Compare first name and last name of every person with filter text.
+            String lowerCaseFilter = newValue.toLowerCase();
+
+            if (row.getNo().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches first name.
+            }
+            if (row.getTime().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches first name.
+            } else if (row.getSource().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            else if (row.getSource().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            else if (row.getDestination().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            else if (row.getProtocol().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            else if (row.getLength().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            else if (row.getInfo().toLowerCase().contains(lowerCaseFilter)) {
+                return true; // Filter matches last name.
+            }
+            return false; // Does not match.
+        });
+    });
+            //SortedList<RowPacket> sortedData = new SortedList<>(filteredData);
+            //sortedData.comparatorProperty().bind(PacketsTable.comparatorProperty());
+            PacketsTable.setItems(filteredData);
+            
     }
 
     //Assuming that this is the Start Button Action method
@@ -181,12 +266,12 @@ public class CaptureWindowController implements Initializable {
         StartBtn.setDisable(true);
         StopBtn.setDisable(false);
         Constants.pc.startCapturing();
-        PacketsTable.setItems(Packets);
+        //PacketsTable.setItems(filteredList);
             
 
         //Packets.add(Constants.pc.pcapt.getLastPacket());
 
-        PacketsTable.setItems(Packets);
+        //PacketsTable.setItems(Packets);
     }
 
     //Assuming that this is the Stop Button Action method
@@ -206,12 +291,74 @@ public class CaptureWindowController implements Initializable {
         Constants.pc.km = new APIs.Kmeans_Bonus(Constants.pc.loadData(Constants.pc.filename), Constants.k);
         Constants.pc.km.start();
     }
-    public void ShowHexValues()
+    
+    public void getSlectedRowMouseClicked()
     {
-        RowPacket r= PacketsTable.getSelectionModel().getSelectedItem();
-        HEXText.setText(r.getHexView());
-        InfoText.setText(r.getMoreDetail());
+        ShowValues(PacketsTable.getSelectionModel().getSelectedItem());
+    }
+    
+    
+    
+    public void ShowValues(RowPacket r)
+    {
+        frameText.setText("");
+        ethernetText.setText("");
+        ipText.setText("");
+        protocolText.setText("");
+        protocol.setVisible(false);
+        frame.setVisible(false);
+        ethernet.setVisible(false);
+        ip.setVisible(false);
         
+        
+        HEXText.setText(r.getHexView());
+        //InfoText.setText(r.getMoreDetail());
+        if(!(r.getFrameCordion().equals("")))
+        {
+            frame.setVisible(true);
+            frameText.setText(r.getFrameCordion());
+        }
+       
+        if(!(r.getEthernetCordion().equals("")))
+        {
+            ethernet.setVisible(true);
+            ethernetText.setText(r.getEthernetCordion());
+        }
+        
+        if(!(r.getIpCordion().equals("")))
+        {
+            ip.setVisible(true);
+            ipText.setText(r.getIpCordion());
+        }
+        
+        if(!(r.getProtocolCordion().equals("")))
+        {
+            protocol.setVisible(true);
+            protocolText.setText(r.getProtocolCordion());
+        }
+        
+    }
+    
+    public void reset()
+    {
+        EndBtn();
+        frameText.setText("");
+        ethernetText.setText("");
+        ipText.setText("");
+        protocolText.setText("");
+        HEXText.setText("");
+        protocol.setVisible(false);
+        frame.setVisible(false);
+        ethernet.setVisible(false);
+        ip.setVisible(false);
+        Packets.clear();
+    }
+    
+    public void filter()
+    {
+        FilteredList<RowPacket> filteredList = new FilteredList<>(Packets);
+        
+
     }
 
 }

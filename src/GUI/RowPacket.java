@@ -5,8 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import org.jnetpcap.packet.PcapPacket;
 
 public class RowPacket {
-    private static int count = 0;
-    private  Integer No = 0;   
+    private static int count = 1;
+    private SimpleStringProperty No;   
     private SimpleStringProperty Time;
     private SimpleStringProperty Source;
     private SimpleStringProperty Destination;
@@ -25,7 +25,7 @@ public class RowPacket {
     
     
     public RowPacket(String Time, String Source, String Destination, String Protocol, String Length, String Info) {
-        this.No= count++;
+        this.No= new SimpleStringProperty((count++) +"");
         this.Time = new SimpleStringProperty(Time);
         this.Source = new SimpleStringProperty(Source);
         this.Destination = new SimpleStringProperty(Destination);
@@ -36,7 +36,7 @@ public class RowPacket {
     }
 
     public RowPacket(String[] row) {
-        this.No = count++;
+        this.No = new SimpleStringProperty((count++) +"");
         this.Time = new SimpleStringProperty(row[0]);
         this.Source = new SimpleStringProperty(row[1]);
         this.Destination = new SimpleStringProperty(row[2]);
@@ -47,13 +47,13 @@ public class RowPacket {
         this.frameCordion = new SimpleStringProperty(row[7]);
         this.EthernetCordion = new SimpleStringProperty(row[8]);
         this.ipCordion = new SimpleStringProperty(row[9]);
-        this.EthernetCordion = new SimpleStringProperty(row[10]);
+        this.protocolCordion = new SimpleStringProperty(row[10]);
         this.MoreDetails = new SimpleStringProperty(row[7]+row[8]+row[9]+row[10]);
     }
 
 
-    public int getNo(){
-        return No;
+    public String getNo(){
+        return No.get();
     }
     public String getTime(){
         return Time.get();
@@ -80,6 +80,22 @@ public class RowPacket {
 
     public String getMoreDetail() {
         return MoreDetails.get();
+    }
+
+    public String getEthernetCordion() {
+        return EthernetCordion.get();
+    }
+
+    public String getFrameCordion() {
+        return frameCordion.get();
+    }
+
+    public String getProtocolCordion() {
+        return protocolCordion.get();
+    }
+
+    public String getIpCordion() {
+        return ipCordion.get();
     }
     
     

@@ -37,6 +37,9 @@ import org.jnetpcap.*;
 import APIs.ProjectController;
 import APIs.ProjectController;
 import GUI.PcapIfRow;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 /**
  *
  * @author Kero
@@ -95,7 +98,19 @@ public class FXMLDocumentController implements Initializable {
     public void CaptureScreenBtn(ActionEvent event) throws IOException
     {
         try{
+            if(tableView.getSelectionModel().getSelectedItem()!= null)
+            {
             Constants.pc.NetworkInterfaceIndex = tableView.getSelectionModel().getSelectedIndex();
+            }
+            else
+            {
+                
+                Alert alert = new Alert(AlertType.ERROR, "Please select Adapter", ButtonType.OK);
+                alert.showAndWait();
+
+                return;
+                
+            }
             System.out.println(tableView.getSelectionModel().getSelectedIndex());
         Parent capture = FXMLLoader.load(getClass().getResource("/GUI/CaptureWindow.fxml"));
         Scene CaptureWindow = new Scene(capture);

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CaptureWindowController">
    <children>
-      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" onMouseClicked="#ShowHexValues" onSort="#StartBtn" prefHeight="200.0" prefWidth="753.0">
+      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" prefHeight="200.0" prefWidth="753.0">
         <columns>
           <TableColumn fx:id="No" prefWidth="75.0" text="No." />
           <TableColumn fx:id="Time" prefWidth="75.0" text="Time" />
@@ -19,12 +24,59 @@
             <TableColumn fx:id="Info" prefWidth="75.0" text="Info" />
         </columns>
       </TableView>
-      <Button fx:id="StartBtn" layoutX="14.0" layoutY="26.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
-      <Button fx:id="StopBtn" layoutX="64.0" layoutY="26.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
-      <Button layoutX="115.0" layoutY="26.0" mnemonicParsing="false" text="reset" />
-      <TextArea fx:id="InfoText" layoutX="12.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0" />
+      <Button fx:id="StartBtn" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
+      <Button fx:id="StopBtn" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
+      <Button layoutX="115.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" onMouseClicked="#reset" text="reset" />
       <TextArea fx:id="HEXText" editable="false" layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="753.0" />
       <Button fx:id="LoadBtn" layoutX="599.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" text="Load" />
       <Button layoutX="667.0" layoutY="13.0" mnemonicParsing="false" onAction="#bonusTest" text="Bonus test" />
+      <Accordion layoutX="14.0" layoutY="260.0" />
+      <Pane layoutX="15.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0">
+         <children>
+            <Accordion fx:id="accordion" prefHeight="200.0" prefWidth="753.0">
+              <panes>
+                <TitledPane fx:id="frame" animated="false" text="Frame" visible="false">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="frameText" editable="false" layoutY="-1.0" prefHeight="101.0" prefWidth="753.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane fx:id="ethernet" animated="false" text="Ethernet" visible="false">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="ethernetText" editable="false" layoutY="-8.0" prefHeight="108.0" prefWidth="753.0" />
+                           </children></AnchorPane>
+                  </content>
+                </TitledPane>
+                <TitledPane fx:id="ip" animated="false" text="Internet Protocol" visible="false">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Accordion />
+                              <TextArea fx:id="ipText" editable="false" prefHeight="100.0" prefWidth="753.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </TitledPane>
+                  <TitledPane fx:id="protocol" animated="false" text="Protocol" visible="false">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Accordion />
+                              <TextArea fx:id="protocolText" editable="false" prefHeight="100.0" prefWidth="753.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+              </panes>
+            </Accordion>
+         </children>
+      </Pane>
+      <TextField fx:id="filterField" layoutX="294.0" layoutY="13.0" />
+      <Label layoutX="248.0" layoutY="17.0" text="Filter" />
    </children>
 </AnchorPane>
