@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package APIs;
+import GUI.CaptureWindowController;
+import GUI.RowPacket;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -86,13 +88,13 @@ public class PacketReader {
             try {
                 Source = Inet4Address.getByAddress(b).getHostAddress();
             } catch (UnknownHostException ex) {
-                Logger.getLogger(PacketReader.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.toString()+"asdasdasda");
             }
             b=packet.getHeader(ip).destination();
             try {
                 Destination=Inet4Address.getByAddress(b).getHostAddress();
             } catch (UnknownHostException ex) {
-                Logger.getLogger(PacketReader.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.toString()+"asdasdasda");
             }
         }
         if(packet.hasHeader(http)){
@@ -147,14 +149,18 @@ public class PacketReader {
         //else if icmp
         
      
-        AllInfo.add(Time);
-        AllInfo.add(PacketBytes);
-        AllInfo.add(Source);
-        AllInfo.add(Destination);
-        AllInfo.add(protocol);
-        AllInfo.add(length);
-        AllInfo.add(info);
-        AllInfo.add(MoreDetails);
+//        AllInfo.add(Time);//0
+//        AllInfo.add(PacketBytes);//1
+//        AllInfo.add(Source);//2
+//        AllInfo.add(Destination);//3
+//        AllInfo.add(protocol);//4 
+//        AllInfo.add(length);
+//        AllInfo.add(info);
+//        AllInfo.add(MoreDetails);
+        String[] row = {""+Time,Source,Destination,protocol,""+length,info};
+        RowPacket packetRow = new RowPacket(row);
+        CaptureWindowController.Packets.add(packetRow);
+        
     }
     
     public String[] getStringArray()

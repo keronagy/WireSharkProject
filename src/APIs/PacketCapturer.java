@@ -51,18 +51,16 @@ public class PacketCapturer {
                 //tmp to kiro ya mina
                 String[] row = {"Time","source","Destination","Protocol","Length","Info","Hex view","MoreDetail"};
                 RowPacket rp = new RowPacket(row);
-                CaptureWindowController.Packets.add(rp);
+                //CaptureWindowController.Packets.add(rp);
                 lrp = rp;
                 //PacketsStringList.add(pr.getStringArray());
                 //RowPacket.CreateRow(packet);
             }
         };
 
-        try {
+        
             pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
-        } catch (Exception e) {
-            System.out.println("Exception"+e.toString()+e.getMessage());
-        };
+        
     }
     public RowPacket getLastPacket()
     {
