@@ -56,6 +56,8 @@ public class CaptureWindowController implements Initializable {
     @FXML
     private Button StopBtn;
 
+    public static ObservableList<RowPacket> Packets;
+
     @FXML
     private TableView<RowPacket> PacketsTable;
     @FXML
@@ -158,6 +160,7 @@ public class CaptureWindowController implements Initializable {
         Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
         Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
         StopBtn.setDisable(true);
+        Packets = FXCollections.observableArrayList();
         
     }
 
@@ -166,6 +169,7 @@ public class CaptureWindowController implements Initializable {
 
     public void StartBtn() {
         //DO NOT WRITE ANYTHING NEW HERE
+
         StartBtn.setDisable(true);
         StopBtn.setDisable(false);
         ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
@@ -177,6 +181,13 @@ public class CaptureWindowController implements Initializable {
             Packets.add(new RowPacket("time", "source", "Des", "proto", "len", "ino"));
         }
         
+
+        Constants.pc.startCapturing();
+        System.out.println(Packets.size());
+        //Packets.add(Constants.pc.pcapt.getLastPacket());
+            
+     
+        PacketsTable.setItems(Packets);
     }
 
     //Assuming that this is the Stop Button Action method

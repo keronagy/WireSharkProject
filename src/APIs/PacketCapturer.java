@@ -5,6 +5,7 @@
  */
 package APIs;
 
+import GUI.CaptureWindowController;
 import GUI.RowPacket;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class PacketCapturer {
                 //tmp to kiro ya mina
                 String[] row = {"Time","source","Destination","Protocol","Length","Info","Hex view","MoreDetail"};
                 RowPacket rp = new RowPacket(row);
+                CaptureWindowController.Packets.add(rp);
                 lrp = rp;
                 //PacketsStringList.add(pr.getStringArray());
                 //RowPacket.CreateRow(packet);
