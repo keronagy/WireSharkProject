@@ -14,8 +14,11 @@ public class RowPacket {
     private SimpleStringProperty Length;
     private SimpleStringProperty Info;
     private SimpleStringProperty HexView;
-    private SimpleStringProperty MoreDetail; // Contains the cordions data, it will need to be parsed
-
+    private SimpleStringProperty frameCordion;
+    private SimpleStringProperty EthernetCordion;
+    private SimpleStringProperty ipCordion;
+    private SimpleStringProperty protocolCordion;
+    private SimpleStringProperty MoreDetails; //remove it ya kiro no need for it now
     public RowPacket() {
     }
     
@@ -29,10 +32,11 @@ public class RowPacket {
         this.Protocol = new SimpleStringProperty(Protocol);
         this.Length = new SimpleStringProperty(Length);
         this.Info = new SimpleStringProperty(Info);
+        
     }
 
     public RowPacket(String[] row) {
-        this.No++;
+        this.No = count++;
         this.Time = new SimpleStringProperty(row[0]);
         this.Source = new SimpleStringProperty(row[1]);
         this.Destination = new SimpleStringProperty(row[2]);
@@ -40,8 +44,11 @@ public class RowPacket {
         this.Length = new SimpleStringProperty(row[4]);
         this.Info = new SimpleStringProperty(row[5]);
         this.HexView = new SimpleStringProperty(row[6]);
-        this.MoreDetail = new SimpleStringProperty(row[7]);
-
+        this.frameCordion = new SimpleStringProperty(row[7]);
+        this.EthernetCordion = new SimpleStringProperty(row[8]);
+        this.ipCordion = new SimpleStringProperty(row[9]);
+        this.EthernetCordion = new SimpleStringProperty(row[10]);
+        this.MoreDetails = new SimpleStringProperty(row[7]+row[8]+row[9]+row[10]);
     }
 
 
@@ -72,7 +79,7 @@ public class RowPacket {
     }
 
     public String getMoreDetail() {
-        return MoreDetail.get();
+        return MoreDetails.get();
     }
     
     

@@ -198,7 +198,12 @@ public class CaptureWindowController implements Initializable {
     }
 
     public void bonusTest() {
-
+        //Constants.pc.filename = //file path
+        
+        
+        
+        Constants.pc.loadData(Constants.pc.filename);
+        Constants.pc.km = new APIs.Kmeans_Bonus(Constants.pc.loadData(Constants.pc.filename), Constants.k);
         Constants.pc.km.start();
     }
     public void ShowHexValues()

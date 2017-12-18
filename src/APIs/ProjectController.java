@@ -30,7 +30,7 @@ public class ProjectController {
     public String filename;
 
     public ProjectController() {
-        km = new Kmeans_Bonus(loadData(filename), Constants.k);
+        //km = new Kmeans_Bonus(loadData(filename), Constants.k);
         pcapt = new PacketCapturer();
         NetworkDevicesList = new ArrayList();
 
