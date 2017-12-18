@@ -69,7 +69,6 @@ public class CaptureWindowController implements Initializable {
 //    private TableColumn<RowPacket, String> Length;
 //    @FXML
 //    private TableColumn<RowPacket, String> Info;
-    
     @FXML
     private TableView<RowPacket> PacketsTable;
     @FXML
@@ -134,14 +133,17 @@ public class CaptureWindowController implements Initializable {
             StringBuilder errbuf = new StringBuilder();
 
             Pcap pcap = Pcap.openOffline(fname, errbuf);
-
+            Packets.clear();
             PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {
                 @Override
                 public void nextPacket(PcapPacket packet, String user) {
+
                     PacketReader pr = new PacketReader();
                     pr.ReadPacket(packet);
-                    String[] row = {"Time", "source", "Destination", "Protocol", "Length", "Info", "MoreDetail"};
+                    String[] row = {"Time", "source", "Destination", "Protocol", "Length", "Info","Hex view","MoreDetail"};
                     RowPacket rp = new RowPacket(row);
+
+                    Packets.add(rp);
                 }
             };
 
@@ -153,8 +155,10 @@ public class CaptureWindowController implements Initializable {
             try {
                 pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
             } catch (Exception exp) {
-                System.out.println("file ended");
+                  exp.printStackTrace();
             }
+            
+            PacketsTable.setItems(Packets);
 
         }
     }
@@ -166,8 +170,6 @@ public class CaptureWindowController implements Initializable {
 //        Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
 //        Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
 //        Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
@@ -178,19 +180,16 @@ public class CaptureWindowController implements Initializable {
         Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
         Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
         Packets = FXCollections.observableArrayList();
-        
+
     }
 
     //Assuming that this is the Start Button Action method
-    
-
     public void StartBtn() {
         //DO NOT WRITE ANYTHING NEW HERE
         Constants.pc.startCapturing();
         System.out.println(Packets.size());
         //Packets.add(Constants.pc.pcapt.getLastPacket());
-            
-     
+
         PacketsTable.setItems(Packets);
     }
 
