@@ -199,18 +199,10 @@ public class CaptureWindowController implements Initializable {
 
         StartBtn.setDisable(true);
         StopBtn.setDisable(false);
-        ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
         Constants.pc.startCapturing();
-            PacketsTable.setItems(Packets);
+        PacketsTable.setItems(Packets);
             
-        for (int i = 0; i < 10; i++) {
-            //Packets.add(Constants.pc.pcapt.getLastPacket());
-            Packets.add(new RowPacket("time", "source", "Des", "proto", "len", "ino"));
-        }
-        
 
-        Constants.pc.startCapturing();
-        System.out.println(Packets.size());
         //Packets.add(Constants.pc.pcapt.getLastPacket());
 
         PacketsTable.setItems(Packets);
