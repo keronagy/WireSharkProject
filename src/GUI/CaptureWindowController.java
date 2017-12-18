@@ -51,6 +51,7 @@ public class CaptureWindowController implements Initializable {
     private Button SaveBtn;
     @FXML
     private Button LoadBtn;
+    public static ObservableList<RowPacket> Packets;
 
 //    @FXML
 //    private TableView<RowPacket> PacketsTable;
@@ -176,7 +177,7 @@ public class CaptureWindowController implements Initializable {
         Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
         Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
         Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
-        
+        Packets = FXCollections.observableArrayList();
         
     }
 
@@ -185,14 +186,11 @@ public class CaptureWindowController implements Initializable {
 
     public void StartBtn() {
         //DO NOT WRITE ANYTHING NEW HERE
-        ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
         Constants.pc.startCapturing();
+        System.out.println(Packets.size());
         //Packets.add(Constants.pc.pcapt.getLastPacket());
             
-            
-        for (int i = 0; i < 10; i++) {
-            Packets.add(new RowPacket("time", "source", "Des", "proto", "len", "ino"));
-        }
+     
         PacketsTable.setItems(Packets);
     }
 
