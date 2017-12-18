@@ -280,11 +280,18 @@ public class CaptureWindowController implements Initializable {
         Constants.pc.stopCapturing();
         StartBtn.setDisable(false);
         StopBtn.setDisable(true);
+        
     }
 
     public void bonusTest() {
-        //Constants.pc.filename = //file path
-        
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(
+                new ExtensionFilter("txt files", "*.txt"));
+        File selectedFile = fc.showOpenDialog(null);
+
+        if (selectedFile != null) {
+        Constants.pc.filename = selectedFile.getAbsolutePath();
+        }
         
         
         Constants.pc.loadData(Constants.pc.filename);
