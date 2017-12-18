@@ -34,7 +34,7 @@ public class PacketCapturer {
     public PacketCapturer() {
         //PacketsStringList = new ArrayList();
         featuresList = new int[Constants.n][Constants.m]; //bonus stuff
-        lrp = new RowPacket(null);
+        lrp = new RowPacket();
     }
 
     public void StartCapture(int InterfaceIndex) {

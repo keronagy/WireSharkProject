@@ -6,7 +6,7 @@ import org.jnetpcap.packet.PcapPacket;
 
 public class RowPacket {
 
-    public static int No;
+    public static Integer No = 0;
     private SimpleStringProperty Time;
     private SimpleStringProperty Source;
     private SimpleStringProperty Destination;
@@ -14,6 +14,11 @@ public class RowPacket {
     private SimpleStringProperty Length;
     private SimpleStringProperty Info;
     private SimpleStringProperty MoreDetail; // Contains the cordions data, it will need to be parsed
+
+    public RowPacket() {
+    }
+    
+    
     
     public RowPacket(String Time, String Source, String Destination, String Protocol, String Length, String Info) {
         this.No++;
@@ -103,7 +108,7 @@ public class RowPacket {
 //        
 //      
 //    }
-    public int GetNo() {
+    public Integer GetNo() {
         return No;
     }
 
