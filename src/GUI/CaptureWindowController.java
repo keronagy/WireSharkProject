@@ -7,6 +7,7 @@
 package GUI;
 
 import APIs.Constants;
+import APIs.PacketReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -34,6 +35,8 @@ import org.jnetpcap.PcapDumper;
 import org.jnetpcap.PcapHeader;
 import org.jnetpcap.PcapIf;
 import org.jnetpcap.nio.JBuffer;
+import org.jnetpcap.packet.PcapPacket;
+import org.jnetpcap.packet.PcapPacketHandler;
 //import jpcap.JpcapCaptor;
 //import jpcap.NetworkInterface;
 
@@ -48,7 +51,7 @@ public class CaptureWindowController implements Initializable {
     private Button SaveBtn;
     @FXML
     private Button LoadBtn;
-    
+
 //    @FXML
 //    private TableView<RowPacket> PacketsTable;
 ////    @FXML
@@ -65,7 +68,6 @@ public class CaptureWindowController implements Initializable {
 //    private TableColumn<RowPacket, String> Length;
 //    @FXML
 //    private TableColumn<RowPacket, String> Info;
-
     public void SaveBtnClicked(ActionEvent e) {
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
@@ -113,17 +115,36 @@ public class CaptureWindowController implements Initializable {
             StringBuilder errbuf = new StringBuilder();
 
             Pcap pcap = Pcap.openOffline(fname, errbuf);
+
+            PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {
+                @Override
+                public void nextPacket(PcapPacket packet, String user) {
+                    PacketReader pr = new PacketReader();
+                    pr.ReadPacket(packet);
+                    String[] row = {"Time", "source", "Destination", "Protocol", "Length", "Info", "MoreDetail"};
+                    RowPacket rp = new RowPacket(row);
+                }
+            };
+
             if (pcap == null) {
                 System.err.printf("Error while opening device for capture: "
                         + errbuf.toString());
 
             }
-        }
+            try {
+                pcap.loop(Pcap.LOOP_INFINITE, jpacketHandler, "");
+            } catch (Exception exp) {
+                System.out.println("file ended");
+            }
 
+        }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+        @Override
+        public void initialize
+        (URL location, ResourceBundle resources
+        
+        ) {
 //       // No.setCellValueFactory(new PropertyValueFactory<RowPacket, Integer>("No"));
 //        Time.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Time"));
 //        Source.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Source"));
@@ -131,11 +152,12 @@ public class CaptureWindowController implements Initializable {
 //        Protocol.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Protocol"));
 //        Length.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Length"));
 //        Info.setCellValueFactory(new PropertyValueFactory<RowPacket, String>("Info"));
-        
-        
+
     }
 
     //Assuming that this is the Start Button Action method
+    
+
     public void StartBtn() {
         //DO NOT WRITE ANYTHING NEW HERE
         //ObservableList<RowPacket> Packets = FXCollections.observableArrayList();   
@@ -153,11 +175,10 @@ public class CaptureWindowController implements Initializable {
         //DO NOT WRITE ANYTHING NEW HERE
         Constants.pc.stopCapturing();
     }
-    
-    public void bonusTest()
-    {
-        
-     Constants.pc.km.start();
+
+    public void bonusTest() {
+
+        Constants.pc.km.start();
     }
 
 }
