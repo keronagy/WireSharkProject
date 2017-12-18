@@ -13,6 +13,7 @@ public class RowPacket {
     private SimpleStringProperty Protocol;
     private SimpleStringProperty Length;
     private SimpleStringProperty Info;
+    private SimpleStringProperty HexView;
     private SimpleStringProperty MoreDetail; // Contains the cordions data, it will need to be parsed
 
     public RowPacket() {
@@ -38,7 +39,8 @@ public class RowPacket {
         this.Protocol = new SimpleStringProperty(row[3]);
         this.Length = new SimpleStringProperty(row[4]);
         this.Info = new SimpleStringProperty(row[5]);
-        this.MoreDetail = new SimpleStringProperty(row[6]);
+        this.HexView = new SimpleStringProperty(row[6]);
+        this.MoreDetail = new SimpleStringProperty(row[7]);
 
     }
 

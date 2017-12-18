@@ -48,7 +48,7 @@ public class PacketCapturer {
                 pr.ReadPacket(packet);
                 dumper.dump(packet.getCaptureHeader(),packet);
                 //tmp to kiro ya mina
-                String[] row = {"Time","source","Destination","Protocol","Length","Info","MoreDetail"};
+                String[] row = {"Time","source","Destination","Protocol","Length","Info","Hex view","MoreDetail"};
                 RowPacket rp = new RowPacket(row);
                 lrp = rp;
                 //PacketsStringList.add(pr.getStringArray());
