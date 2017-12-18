@@ -66,10 +66,4 @@ public class RowPacket {
     public String getInfo(){
         return Info.get();
     }
-
-    public String getHexView() {
-        return HexView.get();
-    }
-    
-    
 }

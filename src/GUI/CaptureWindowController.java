@@ -25,7 +25,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -59,8 +58,23 @@ public class CaptureWindowController implements Initializable {
 
     public static ObservableList<RowPacket> Packets;
 
-    @FXML
-    public static TextArea HEXText;
+//    @FXML
+//    private TableView<RowPacket> PacketsTable;
+////    @FXML
+////    private TableColumn<RowPacket, Integer> No;
+//    @FXML
+//    private TableColumn<RowPacket, String> Time;
+//    @FXML
+//    private TableColumn<RowPacket, String> Source;
+//    @FXML
+//    private TableColumn<RowPacket, String> Destination;
+//    @FXML
+//    private TableColumn<RowPacket, String> Protocol;
+//    @FXML
+//    private TableColumn<RowPacket, String> Length;
+//    @FXML
+//    private TableColumn<RowPacket, String> Info;
+
     @FXML
     private TableView<RowPacket> PacketsTable;
     @FXML
@@ -205,11 +219,6 @@ public class CaptureWindowController implements Initializable {
     public void bonusTest() {
 
         Constants.pc.km.start();
-    }
-    
-    public void ShowHexValues(ActionEvent e)
-    {
-        HEXText.setText(PacketsTable.getSelectionModel().getSelectedItem().getHexView());
     }
 
 }
