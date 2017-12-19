@@ -11,35 +11,38 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="612.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CaptureWindowController">
+<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.CaptureWindowController">
    <children>
-      <TableView fx:id="PacketsTable" layoutX="12.0" layoutY="60.0" prefHeight="200.0" prefWidth="753.0">
+      <TableView fx:id="PacketsTable" editable="true" layoutX="12.0" layoutY="60.0" prefHeight="200.0" prefWidth="1009.0">
         <columns>
-          <TableColumn fx:id="No" prefWidth="75.0" text="No." />
-          <TableColumn fx:id="Time" prefWidth="75.0" text="Time" />
-            <TableColumn fx:id="Source" prefWidth="75.0" text="Source" />
-            <TableColumn fx:id="Destination" prefWidth="75.0" text="Destination" />
-            <TableColumn fx:id="Protocol" prefWidth="75.0" text="Protocol" />
-            <TableColumn fx:id="Length" prefWidth="75.0" text="Length" />
-            <TableColumn fx:id="Info" prefWidth="75.0" resizable="false" text="Info" />
+          <TableColumn fx:id="No" maxWidth="1000.0" minWidth="-Infinity" prefWidth="31.0" text="No." />
+          <TableColumn fx:id="Time" maxWidth="3000.0" prefWidth="96.0" text="Time" />
+            <TableColumn fx:id="Source" maxWidth="2500.0" prefWidth="140.0" text="Source" />
+            <TableColumn fx:id="Destination" maxWidth="2500.0" prefWidth="75.0" text="Destination" />
+            <TableColumn fx:id="Protocol" maxWidth="1000.0" prefWidth="75.0" text="Protocol" />
+            <TableColumn fx:id="Length" maxWidth="2000.0" prefWidth="49.0" text="Length" />
+            <TableColumn fx:id="Info" prefWidth="166.0" text="Info" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Button fx:id="StartBtn" layoutX="12.0" layoutY="13.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
+      <Button fx:id="StartBtn" layoutX="28.0" layoutY="13.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
       <Button fx:id="StopBtn" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
       <Button layoutX="115.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" onMouseClicked="#reset" text="reset" />
-      <TextArea fx:id="HEXText" editable="false" layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="753.0" />
-      <Button fx:id="LoadBtn" layoutX="522.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" prefHeight="25.0" prefWidth="118.0" text="Load" />
-      <Button layoutX="650.0" layoutY="13.0" mnemonicParsing="false" onAction="#bonusTest" prefHeight="25.0" prefWidth="118.0" text="Cluster" />
+      <TextArea fx:id="HEXText" editable="false" layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="1009.0" />
+      <Button fx:id="LoadBtn" layoutX="763.0" layoutY="13.0" mnemonicParsing="false" onAction="#LoadBtbClicked" prefHeight="25.0" prefWidth="118.0" text="Load" />
+      <Button layoutX="892.0" layoutY="13.0" mnemonicParsing="false" onAction="#bonusTest" prefHeight="25.0" prefWidth="118.0" text="Cluster" />
       <Accordion layoutX="14.0" layoutY="260.0" />
-      <Pane layoutX="15.0" layoutY="260.0" prefHeight="200.0" prefWidth="753.0">
+      <Pane layoutX="15.0" layoutY="260.0" prefHeight="200.0" prefWidth="1009.0">
          <children>
-            <Accordion fx:id="accordion" prefHeight="200.0" prefWidth="753.0">
+            <Accordion fx:id="accordion" prefHeight="200.0" prefWidth="1009.0">
               <panes>
                 <TitledPane fx:id="frame" animated="false" text="Frame" visible="false">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea fx:id="frameText" editable="false" layoutY="-1.0" prefHeight="101.0" prefWidth="753.0" />
+                              <TextArea fx:id="frameText" editable="false" layoutY="-1.0" prefHeight="101.0" prefWidth="1009.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -48,7 +51,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextArea fx:id="ethernetText" editable="false" layoutY="-8.0" prefHeight="108.0" prefWidth="753.0" />
+                              <TextArea fx:id="ethernetText" editable="false" layoutY="-8.0" prefHeight="108.0" prefWidth="1009.0" />
                            </children></AnchorPane>
                   </content>
                 </TitledPane>
@@ -57,7 +60,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Accordion />
-                              <TextArea fx:id="ipText" editable="false" prefHeight="100.0" prefWidth="753.0" />
+                              <TextArea fx:id="ipText" editable="false" prefHeight="100.0" prefWidth="1009.0" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -67,7 +70,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Accordion />
-                              <TextArea fx:id="protocolText" editable="false" prefHeight="100.0" prefWidth="753.0" />
+                              <TextArea fx:id="protocolText" editable="false" prefHeight="100.0" prefWidth="1009.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -76,7 +79,8 @@
             </Accordion>
          </children>
       </Pane>
-      <TextField fx:id="filterField" layoutX="294.0" layoutY="13.0" />
-      <Label layoutX="248.0" layoutY="17.0" text="Filter" />
+      <TextField fx:id="filterField" layoutX="383.0" layoutY="13.0" />
+      <Label layoutX="337.0" layoutY="17.0" text="Filter" />
+      <Button fx:id="SaveBtn" disable="true" layoutX="655.0" layoutY="13.0" mnemonicParsing="false" onAction="#SaveBtnClicked" prefHeight="25.0" prefWidth="99.0" text="Save" />
    </children>
 </AnchorPane>

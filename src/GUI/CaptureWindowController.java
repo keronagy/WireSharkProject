@@ -263,6 +263,7 @@ public class CaptureWindowController implements Initializable {
 
         StartBtn.setDisable(true);
         StopBtn.setDisable(false);
+        SaveBtn.setDisable(true);
         Constants.pc.startCapturing();
         //PacketsTable.setItems(filteredList);
             
@@ -278,6 +279,7 @@ public class CaptureWindowController implements Initializable {
         Constants.pc.stopCapturing();
         StartBtn.setDisable(false);
         StopBtn.setDisable(true);
+        SaveBtn.setDisable(false);
         
     }
 
@@ -356,6 +358,7 @@ public class CaptureWindowController implements Initializable {
         frame.setVisible(false);
         ethernet.setVisible(false);
         ip.setVisible(false);
+        SaveBtn.setDisable(true);
         Packets.clear();
         RowPacket.count=1;
     }

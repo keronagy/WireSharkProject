@@ -14,6 +14,6 @@
           <TableColumn fx:id="AdapterIP" minWidth="0.0" prefWidth="184.0" text="AdapterIP" />
         </columns>
       </TableView>
-      <Button layoutX="306.0" layoutY="548.0" mnemonicParsing="false" onAction="#CaptureScreenBtn" text="Start capturing" />
+      <Button layoutX="306.0" layoutY="548.0" mnemonicParsing="false" onAction="#CaptureScreenBtn" text="Select Adapter" />
     </children>
 </AnchorPane>
