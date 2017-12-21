@@ -123,7 +123,10 @@ public class Kmeans_Bonus {
 
     public void displayCentroids() {
         for (int i = 0; i < c.length; i++) {
-            System.out.println("packet: " + i + " cluster number: " + c[i]);
+            System.out.print("packet: " + i + " cluster number: " + c[i]);
+        
+
+        
         }
 
     }

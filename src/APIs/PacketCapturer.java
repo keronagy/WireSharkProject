@@ -27,7 +27,8 @@ import org.jnetpcap.protocol.tcpip.Udp;
  */
 public class PacketCapturer {
 
-    Pcap pcap;
+    public Pcap pcap;
+    public PcapDumper dumper;
     //ArrayList PacketsStringList;
     int[][] featuresList;
 
@@ -39,7 +40,7 @@ public class PacketCapturer {
     public void StartCapture(int InterfaceIndex) {
         OpenNetworkInterface(InterfaceIndex);
         
-        PcapDumper dumper = pcap.dumpOpen("saveFile.pcap");  
+        dumper = pcap.dumpOpen("jnetpcap 1.4\\saveFile.pcap");  
         PcapPacketHandler<String> jpacketHandler = new PcapPacketHandler<String>() {
             @Override
             public void nextPacket(PcapPacket packet, String user) {
@@ -76,6 +77,7 @@ public class PacketCapturer {
     public void stopCapturing() {
 
         pcap.breakloop();
+        
 
     }
 

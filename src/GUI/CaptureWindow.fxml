@@ -27,7 +27,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="StartBtn" layoutX="28.0" layoutY="13.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
+      <Button fx:id="StartBtn" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#StartBtn" text="Start" />
       <Button fx:id="StopBtn" layoutX="64.0" layoutY="13.0" mnemonicParsing="false" onAction="#EndBtn" text="Stop" />
       <Button layoutX="115.0" layoutY="13.0" mnemonicParsing="false" onAction="#reset" onMouseClicked="#reset" text="reset" />
       <TextArea fx:id="HEXText" editable="false" layoutX="10.0" layoutY="460.0" prefHeight="200.0" prefWidth="1009.0" />

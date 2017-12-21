@@ -11,6 +11,11 @@ import APIs.PacketReader;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -47,6 +52,9 @@ import org.jnetpcap.PcapIf;
 import org.jnetpcap.nio.JBuffer;
 import org.jnetpcap.packet.PcapPacket;
 import org.jnetpcap.packet.PcapPacketHandler;
+import static java.nio.file.StandardCopyOption.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 //import jpcap.JpcapCaptor;
 //import jpcap.NetworkInterface;
 
@@ -115,38 +123,23 @@ public class CaptureWindowController implements Initializable {
 
     
     public void SaveBtnClicked(ActionEvent e) {
+        //Constants.pc.pcapt.pcap.close();
         FileChooser fc = new FileChooser();
         fc.getExtensionFilters().addAll(
-                new ExtensionFilter("pccp", "*.pcap"));
+        new ExtensionFilter("pccp", "*.pcap"));
         File Filename = fc.showSaveDialog(null);
-
+       
         if (Filename != null) {
-            System.out.println(Filename.getAbsolutePath());
-            StringBuilder errbuf = new StringBuilder();
-            String fname = Filename.getAbsolutePath();
-
-            Pcap pcap = Pcap.openOffline(fname, errbuf);
-
-            String ofile = "tmp-capture-file.cap";
-            PcapDumper dumper = pcap.dumpOpen(ofile); // output file  
-
-            JBufferHandler<PcapDumper> dumpHandler = new JBufferHandler<PcapDumper>() {
-
-                public void nextPacket(PcapHeader header, JBuffer buffer, PcapDumper dumper) {
-
-                    dumper.dump(header, buffer);
-                }
-            };
-
-            pcap.loop(10, dumpHandler, dumper);
-
-            File file = new File(ofile);
-            System.out.printf("%s file has %d bytes in it!\n", ofile, file.length());
-
-            dumper.close(); // Won't be able to delete without explicit close  
-            pcap.close();
-        }
-
+            try {
+                System.out.println();
+                Files.copy(Paths.get("jnetpcap 1.4\\saveFile.pcap"),
+                        Paths.get(Filename.getAbsolutePath()), StandardCopyOption.COPY_ATTRIBUTES);
+            } catch (IOException ex) {
+                System.out.print(ex.getMessage());
+            }
+//        Constants.pc.pcapt.pcap.activate();
+        
+    }
     }
 
     public void LoadBtbClicked(ActionEvent e) {
@@ -167,8 +160,7 @@ public class CaptureWindowController implements Initializable {
                 public void nextPacket(PcapPacket packet, String user) {
 
                     PacketReader pr = new PacketReader();
-                    pr.ReadPacket(packet);
-                    String[] row = {"Time", "source", "Destination", "Protocol", "Length", "Info","Hex view","MoreDetail"};
+                    String[] row = pr.ReadPacket(packet);
                     RowPacket rp = new RowPacket(row);
 
                     Packets.add(rp);
